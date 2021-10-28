@@ -4,12 +4,15 @@ export type LanguageCard = {
   sourceLangText: string
   targetLangText: string
   targetLangTranscription: string
+  authorEmail: string
 }
 
 export type CreateLanguageCardDto = {
+  category: string
   sourceLangText: string
   targetLangText: string
   targetLangTranscription: string
+  authorEmail: string
 }
 
 export type AppUser = {

@@ -171,6 +171,7 @@ export default function CardFlipper(props: CardFlipperProps) {
               targetLangText: "",
               targetLangTranscription: "",
               category: "",
+              authorEmail: "",
             }}
           flipVisibility={flipVisibility}
         />
