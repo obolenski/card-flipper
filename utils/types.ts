@@ -1,5 +1,11 @@
 export type LanguageCard = {
-  id: string
+  _id: string
+  sourceLangText: string
+  targetLangText: string
+  targetLangTranscription: string
+}
+
+export type LanguageCardCreationDto = {
   sourceLangText: string
   targetLangText: string
   targetLangTranscription: string
