@@ -1,6 +1,6 @@
 /** @jsx h */
-import { Fragment, h } from "preact";
-import { useEffect, useMemo, useState } from "preact/hooks";
+import { h } from "preact";
+import { useEffect, useState } from "preact/hooks";
 import { tw } from "@twind";
 import { LanguageCard } from "../utils/types.ts";
 import Card from "../components/Card.tsx";
@@ -64,7 +64,7 @@ export default function RandomCard(props: RandomCardProps) {
       >
         <a
           onClick={() => serveNewCard()}
-          class={tw`font-bold text-white bg-trueGray-900 shadow rounded-2xl p-5 bottom-20 active:bg-trueGray-600 hover:bg-trueGray-800 hover:shadow-2xl transit`}
+          class={tw`font-bold text-white bg-gray-900 shadow rounded-2xl p-5 bottom-20 active:bg-gray-600 hover:bg-gray-800 hover:shadow-2xl transition-all`}
         >
           ANOTHER
         </a>
