@@ -1,11 +1,13 @@
 /** @jsx h */
 import { h } from "preact";
-import { useState } from "preact/hooks";
 import { tw } from "@twind";
-import { LanguageCard } from "../utils/types.ts";
+import { AppUser, LanguageCard, UserFavs } from "../utils/types.ts";
+import LikeButton from "../islands/LikeButton.tsx";
 
 interface CardTableProps {
   cards: LanguageCard[];
+  user: AppUser;
+  userFavs: UserFavs;
 }
 
 export default function AllCardsTable(props: CardTableProps) {
@@ -31,6 +33,17 @@ export default function AllCardsTable(props: CardTableProps) {
       >
         {card.targetLangTranscription}
       </td>
+      {props.user && (
+        <td
+          class={tw`border-1 border-opacity-10 border-gray-50`}
+        >
+          <LikeButton
+            cardId={card._id}
+            activeOnFirstRender={props.userFavs?.cardIds?.includes(card._id)}
+            email={props.user.email}
+          />
+        </td>
+      )}
     </tr>
   ));
   return (
@@ -38,7 +51,7 @@ export default function AllCardsTable(props: CardTableProps) {
       class={tw`w-[50%] h-full flex-grow-1`}
     >
       <table
-        class={tw`table-fixed w-full
+        class={tw`table-auto w-full
       text-gray-200 text-opacity-80 font-serif`}
       >
         <thead>

@@ -14,9 +14,26 @@ export const handler: Handlers<{
   googleLoginUrl: string;
 }> = {
   async GET(req, ctx) {
+    const allowedPaths = ["all", "fav"];
+    const lastUrlSegment = req.url.split("?")[0].split("/").pop() ?? "";
+    if (!allowedPaths.includes(lastUrlSegment)) {
+      // return ctx.renderNotFound();
+
+      //renderNotFound() not released yet. temp workaround:
+      const response = new Response("", {
+        status: 307,
+        headers: { Location: "/404" },
+      });
+      return response;
+    }
+
     const user = ctx.state.user as AppUser;
     const userFavs = await mongoApi.getUserFavs(user?.email);
-    const cards = await mongoApi.getCardsByIds(userFavs?.cardIds);
+
+    const cards = lastUrlSegment == "all"
+      ? await mongoApi.getAllCards()
+      : await mongoApi.getCardsByIds(userFavs?.cardIds);
+
     const googleLoginUrl = ctx.state.googleLoginUrl as string;
     return ctx.render({
       cards: cards,
@@ -27,7 +44,7 @@ export const handler: Handlers<{
   },
 };
 
-export default function Fav(
+export default function TablePage(
   props: PageProps<{
     cards: LanguageCard[];
     user: AppUser;
@@ -39,7 +56,6 @@ export default function Fav(
   return (
     <Main>
       <Header user={user} googleLoginUrl={googleLoginUrl} />
-      <a href="/tables/all">all</a>
       <AllCardsTable cards={cards} user={user} userFavs={userFavs} />
     </Main>
   );
