@@ -1,4 +1,4 @@
-import { GoogleOAuth2 } from 'https://deno.land/x/google/oauth2.ts'
+import { GoogleOAuth2 } from 'https://deno.land/x/google@0.0.6/oauth2.ts'
 import { GoogleClientID, GoogleClientSecret } from '../utils/env.ts'
 import * as axiod from 'https://deno.land/x/axiod@0.20.0-0/mod.ts'
 import { AppUser } from '../utils/types.ts'
