@@ -1,19 +1,25 @@
 /** @jsx h */
 import { h } from "preact";
 import { Handlers, PageProps } from "$fresh/server.ts";
-import { tw } from "@twind";
-import { LanguageCard } from "../utils/types.ts";
-import Header from "../components/Header.tsx";
+import { AppUser, LanguageCard } from "../utils/types.ts";
+import Main from "../components/Main.tsx";
 import RandomCard from "../islands/RandomCard.tsx";
-import { getAllCards } from "../services/mongoApi.ts";
+import * as mongoApi from "../services/mongoApi.ts";
+import Header from "../components/Header.tsx";
 
 export const handler: Handlers<{
   cards: LanguageCard[];
+  user: AppUser;
+  googleLoginUrl: string;
 }> = {
   async GET(req, ctx) {
-    const cards = await getAllCards();
+    const cards = await mongoApi.getAllCards();
+    const user = ctx.state.user as AppUser;
+    const googleLoginUrl = ctx.state.googleLoginUrl as string;
     return ctx.render({
       cards: cards,
+      user: user,
+      googleLoginUrl: googleLoginUrl,
     });
   },
 };
@@ -21,27 +27,15 @@ export const handler: Handlers<{
 export default function Random(
   props: PageProps<{
     cards: LanguageCard[];
+    user: AppUser;
+    googleLoginUrl: string;
   }>,
 ) {
-  const { cards } = props.data;
+  const { cards, user, googleLoginUrl } = props.data;
   return (
-    <div
-      class={tw`mx-auto w-screen h-screen
-      bg-gradient-to-b from-purple-900 via-indigo-900 to-pink-900
-      antialiased absolute`}
-    >
-      <div
-        class={tw`mx-auto w-screen h-screen 
-        bg-black bg-opacity-50 absolute`}
-      >
-        <div
-          class={tw`mx-auto w-screen h-screen 
-        flex items-center justify-around flex-col`}
-        >
-          <Header />
-          <RandomCard cards={cards} />
-        </div>
-      </div>
-    </div>
+    <Main>
+      <Header user={user} googleLoginUrl={googleLoginUrl} />
+      <RandomCard cards={cards} />
+    </Main>
   );
 }

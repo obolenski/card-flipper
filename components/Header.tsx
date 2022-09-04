@@ -1,12 +1,18 @@
 /** @jsx h */
 import { h } from "preact";
 import { tw } from "@twind";
+import { AppUser } from "../utils/types.ts";
 
-export default function Header() {
+interface HeaderProps {
+  user: AppUser;
+  googleLoginUrl: string;
+}
+
+export default function Header(props: HeaderProps) {
   return (
     <div
       class={tw`
-      bg-trueGray-900 text-white
+      bg-gray-900 text-white
       w-full flex justify-center content-center
       p-3 mb-5
       sticky top-0 z-50`}
@@ -33,8 +39,8 @@ export default function Header() {
           }
         />
         <HeaderIcon
-          href="/all"
-          tooltip="Browse all cards"
+          href="/tables/all"
+          tooltip="Browse cards"
           icon={
             <svg
               fill="white"
@@ -66,8 +72,60 @@ export default function Header() {
       </div>
       <div
         class={tw`flex-1 
-        flex justify-center content-center`}
+        flex justify-end content-center text-sm`}
       >
+        {props.user && (
+          <HeaderIcon
+            href="/user"
+            tooltip={`Signed in as ${props.user.name}`}
+            icon={
+              <img
+                src={props.user.avatarUrl}
+                class={tw`rounded-1/2 h-6`}
+                alt={props.user.name.split(" ")[0]}
+              />
+            }
+          />
+        )}
+        <div class={tw`my-auto`}>
+          {props.user
+            ? (
+              <HeaderIcon
+                href="/logout"
+                tooltip="Sign out"
+                icon={
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    style="fill: rgba(255, 255, 255, 0.5);transform: scaleX(-1);msFilter:progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1);"
+                  >
+                    <path d="M16 13v-2H7V8l-5 4 5 4v-3z"></path>
+                    <path d="M20 3h-9c-1.103 0-2 .897-2 2v4h2V5h9v14h-9v-4H9v4c0 1.103.897 2 2 2h9c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2z">
+                    </path>
+                  </svg>
+                }
+              />
+            )
+            : (
+              <HeaderIcon
+                href={props.googleLoginUrl}
+                tooltip="Sign in"
+                icon={
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    style="fill: rgba(255, 255, 255, 1);transform: ;msFilter:;"
+                  >
+                    <path d="m13 16 5-4-5-4v3H4v2h9z"></path>
+                    <path d="M20 3h-9c-1.103 0-2 .897-2 2v4h2V5h9v14h-9v-4H9v4c0 1.103.897 2 2 2h9c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2z">
+                    </path>
+                  </svg>
+                }
+              />
+            )}
+        </div>
       </div>
     </div>
   );
