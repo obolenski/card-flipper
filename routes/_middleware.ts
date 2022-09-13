@@ -18,12 +18,21 @@ export async function handler(
   const existingRefreshToken = getCookies(req.headers)[
     'cardflipper_refresh_token'
   ]
+  const existingAcessToken = getCookies(req.headers)['cardflipper_access_token']
+
   if (existingRefreshToken) {
     const accessToken = await googleApi.getAccessTokenFromRefreshToken(
       existingRefreshToken,
       redirectUrl
     )
     const user = await googleApi.getUserData(accessToken)
+    if (user) {
+      ctx.state.user = user
+      const response = await ctx.next()
+      return response
+    }
+  } else if (existingAcessToken) {
+    const user = await googleApi.getUserData(existingAcessToken)
     if (user) {
       ctx.state.user = user
       const response = await ctx.next()
@@ -45,10 +54,18 @@ export async function handler(
   if (userData) {
     ctx.state.user = userData
     const response = await ctx.next()
-
+    if (refreshToken) {
+      setCookie(response.headers, {
+        name: 'cardflipper_refresh_token',
+        value: refreshToken,
+        maxAge: 60 * 60 * 24 * 7,
+        httpOnly: true,
+        path: '/',
+      })
+    }
     setCookie(response.headers, {
-      name: 'cardflipper_refresh_token',
-      value: refreshToken,
+      name: 'cardflipper_access_token',
+      value: accessToken,
       maxAge: 60 * 60 * 24 * 7,
       httpOnly: true,
       path: '/',

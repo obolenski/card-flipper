@@ -10,10 +10,17 @@ export const handler: Handlers = {
     })
 
     const refreshToken = getCookies(req.headers)['cardflipper_refresh_token']
+    const acessToken = getCookies(req.headers)['cardflipper_access_token']
 
-    await googleApi.revokeAccessToken(refreshToken)
+    if (refreshToken) {
+      await googleApi.revokeAccessToken(refreshToken)
+      deleteCookie(response.headers, 'cardflipper_refresh_token')
+    }
 
-    deleteCookie(response.headers, 'cardflipper_refresh_token')
+    if (acessToken) {
+      await googleApi.revokeAccessToken(acessToken)
+      deleteCookie(response.headers, 'cardflipper_access_token')
+    }
 
     return response
   },
