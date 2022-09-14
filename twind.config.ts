@@ -1,3 +1,6 @@
-/** @jsx h */
+import { Options } from "$fresh/plugins/twind.ts";
 
-/** @type {import('twind').Configuration} */
+  export default {
+    selfURL: import.meta.url,
+  } as Options;
+  

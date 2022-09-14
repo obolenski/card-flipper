@@ -1,7 +1,5 @@
-/** @jsx h */
-import { h } from "preact";
-import { tw } from "@twind";
 import { AppUser } from "../utils/types.ts";
+import { h } from "preact/src/index";
 
 interface HeaderProps {
   user: AppUser;
@@ -10,17 +8,12 @@ interface HeaderProps {
 
 export default function Header(props: HeaderProps) {
   return (
-    <div
-      class={tw`
-      bg-gray-900 text-white
+    <div class="bg-gray-900 text-white
       w-full flex justify-center content-center
       p-3 mb-5
-      sticky top-0 z-50`}
-    >
-      <div
-        class={tw`flex-1 flex-grow-1
-        flex content-center`}
-      >
+      sticky top-0 z-50">
+      <div class="flex-1 flex-grow-1
+        flex content-center">
         <HeaderIcon
           href="/random"
           tooltip="Random cards"
@@ -56,24 +49,20 @@ export default function Header(props: HeaderProps) {
           }
         />
       </div>
-      <div
-        class={tw`flex-1 
-        flex justify-center content-center`}
-      >
+      <div class="flex-1 
+        flex justify-center content-center">
         <a
           href="/"
-          class={tw`font-bold p-2 rounded-2xl
-      hover:bg-white hover:bg-opacity-10
-      active:bg-white active:bg-opacity-20
-      transition-all`}
+          class="font-bold p-2 rounded-2xl
+          hover:bg-white hover:bg-opacity-10
+          active:bg-white active:bg-opacity-20
+          transition-all"
         >
-          <h1 class={tw`text-2xl`}>CARDS</h1>
+          <h1 class="text-2xl">CARDS</h1>
         </a>
       </div>
-      <div
-        class={tw`flex-1 
-        flex justify-end content-center text-sm`}
-      >
+      <div class="flex-1 
+           flex justify-end content-center text-sm">
         {props.user && (
           <HeaderIcon
             href="/user"
@@ -81,13 +70,13 @@ export default function Header(props: HeaderProps) {
             icon={
               <img
                 src={props.user.avatarUrl}
-                class={tw`rounded-1/2 h-6`}
+                class="rounded-1/2 h-6"
                 alt={props.user.name.split(" ")[0]}
               />
             }
           />
         )}
-        <div class={tw`my-auto`}>
+        <div class="my-auto">
           {props.user
             ? (
               <HeaderIcon
@@ -138,29 +127,25 @@ interface HeaderIconProps {
 }
 
 const HeaderIcon = (props: HeaderIconProps): h.JSX.Element => (
-  <div
-    class={tw` group 
-  flex items-center flex-col`}
-  >
+  <div class=" group 
+       flex items-center flex-col">
     <a
-      class={tw`rounded-2xl my-auto p-2 mx-3
-  hover:bg-white hover:bg-opacity-10
-  active:bg-white active:bg-opacity-20
-  transition-all`}
+      class="rounded-2xl my-auto p-2 mx-3
+      hover:bg-white hover:bg-opacity-10
+      active:bg-white active:bg-opacity-20
+      transition-all"
       href={props.href}
     >
       {props.icon}
     </a>
 
-    <span
-      class={tw` absolute origin-top top-[3.5rem] z-[60]
-      m-3 p-3
-      rounded shadow bg(gray-50 opacity-20)
-      text-white text-xs font-bold whitespace-nowrap 
-      transition-all  
-      scale-0
-      group-hover:(scale-100)`}
-    >
+    <span class=" absolute origin-top top-[3.5rem] z-[60]
+          m-3 p-3
+          rounded shadow bg(gray-50 opacity-20)
+          text-white text-xs font-bold whitespace-nowrap 
+          transition-all  
+          scale-0
+          group-hover:(scale-100)">
       {props.tooltip}
     </span>
   </div>

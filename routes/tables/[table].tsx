@@ -1,5 +1,3 @@
-/** @jsx h */
-import { h } from "preact";
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { AppUser, LanguageCard, UserFavs } from "../../utils/types.ts";
 import AllCardsTable from "../../components/AllCardsTable.tsx";
@@ -17,14 +15,7 @@ export const handler: Handlers<{
     const allowedPaths = ["all", "fav"];
     const lastUrlSegment = req.url.split("?")[0].split("/").pop() ?? "";
     if (!allowedPaths.includes(lastUrlSegment)) {
-      // return ctx.renderNotFound();
-
-      //renderNotFound() not released yet. temp workaround:
-      const response = new Response("", {
-        status: 307,
-        headers: { Location: "/404" },
-      });
-      return response;
+      return ctx.renderNotFound();
     }
 
     const user = ctx.state.user as AppUser;

@@ -76,19 +76,13 @@ export default function RandomCard(props: RandomCardProps) {
   );
 
   return (
-    <div
-      class="h-full w-full
-                    flex items-center justify-center flex-col sm:flex-row"
-    >
-      <div
-        class="flex-1
-                              flex items-center justify-center flex-col 
-                            text-white text-opacity-20"
-      >
+    <div class="h-full w-full
+      flex items-center justify-center flex-col sm:flex-row">
+      <div class="flex-1
+        flex items-center justify-center flex-col 
+        text-white text-opacity-20">
       </div>
-      <div
-        class="flex-1 h-full flex items-center justify-center flex-col min-w-[80vw] sm:min-w-[20vw]"
-      >
+      <div class="flex-1 h-full flex items-center justify-center flex-col min-w-[80vw] sm:min-w-[20vw]">
         {currentCard &&
           <Card card={currentCard} flipVisibility={flipVisibility} />}
         <p class="text-white text-opacity-20 absolute bottom-5">
@@ -100,9 +94,7 @@ export default function RandomCard(props: RandomCardProps) {
           </a>)
         </p>
       </div>
-      <div
-        class="flex-1 flex items-center justify-center flex-col"
-      >
+      <div class="flex-1 flex items-center justify-center flex-col">
         <a
           onClick={() => serveNewCard()}
           class="font-bold text-white bg-gray-900 shadow rounded-2xl p-5 bottom-20 active:bg-gray-600 hover:bg-gray-800 hover:shadow-2xl transition-all"

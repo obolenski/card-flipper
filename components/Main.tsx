@@ -1,6 +1,4 @@
-/** @jsx h */
-import { h } from "preact";
-import { tw } from "@twind";
+import { h } from "preact/src/index";
 
 export default function Main(
   { children }: { children: h.JSX.Element[] | h.JSX.Element },
@@ -42,20 +40,17 @@ export default function Main(
   ];
   return (
     <main
-      class={tw`w-screen min-h-screen text-gray-200
-      ${getRandom(gradientDirections)} ${getRandom(from)} ${getRandom(via)} ${
-        getRandom(to)
-      }
+      class={`w-screen min-h-screen text-gray-200
+      ${getRandom(gradientDirections)} 
+      ${getRandom(from)} 
+      ${getRandom(via)} 
+      ${getRandom(to)}
       antialiased absolute flex flex-grow-1`}
     >
-      <div
-        class={tw`w-screen min-h-screen
-        bg-black bg-opacity-50 flex flex-grow-1`}
-      >
-        <div
-          class={tw`mx-auto w-screen min-h-screen
-        flex items-center justify-around flex-grow-1 flex-col`}
-        >
+      <div class="w-screen min-h-screen
+        bg-black bg-opacity-50 flex flex-grow-1">
+        <div class="mx-auto w-screen min-h-screen
+          flex items-center justify-around flex-grow-1 flex-col">
           {children}
         </div>
       </div>

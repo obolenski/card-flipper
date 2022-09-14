@@ -1,6 +1,3 @@
-/** @jsx h */
-import { h } from "preact";
-import { tw } from "@twind";
 import { AppUser, LanguageCard, UserFavs } from "../utils/types.ts";
 import LikeButton from "../islands/LikeButton.tsx";
 
@@ -14,29 +11,20 @@ export default function AllCardsTable(props: CardTableProps) {
   const rows = props.cards.map((card) => (
     <tr
       key={card._id}
-      class={tw` font-bold group
-      hover:(bg-white bg-opacity-10 shadow) transition-all 
-      `}
+      class=" font-bold group
+      hover:(bg-white bg-opacity-10 shadow) transition-all"
     >
-      <td
-        class={tw`p-3 m-3 border-1 border-opacity-10 border-gray-50`}
-      >
+      <td class="p-3 m-3 border-1 border-opacity-10 border-gray-50">
         {card.sourceLangText}
       </td>
-      <td
-        class={tw`p-3 m-3 border-1 border-opacity-10 border-gray-50 text-xl`}
-      >
+      <td class="p-3 m-3 border-1 border-opacity-10 border-gray-50 text-xl">
         {card.targetLangText}
       </td>
-      <td
-        class={tw`p-3 m-3 border-1 border-opacity-10 border-gray-50`}
-      >
+      <td class="p-3 m-3 border-1 border-opacity-10 border-gray-50">
         {card.targetLangTranscription}
       </td>
       {props.user && (
-        <td
-          class={tw`border-1 border-opacity-10 border-gray-50`}
-        >
+        <td class="border-1 border-opacity-10 border-gray-50">
           <LikeButton
             cardId={card._id}
             activeOnFirstRender={props.userFavs?.cardIds?.includes(card._id)}
@@ -47,22 +35,18 @@ export default function AllCardsTable(props: CardTableProps) {
     </tr>
   ));
   return (
-    <div
-      class={tw`w-[50%] h-full flex-grow-1`}
-    >
-      <table
-        class={tw`table-auto w-full
-      text-gray-200 text-opacity-80 font-serif`}
-      >
+    <div class="w-[50%] h-full flex-grow-1">
+      <table class="table-auto w-full
+        text-gray-200 text-opacity-80 font-serif">
         <thead>
           <tr>
-            <th class={tw`p-3 m-3 text-gray-300 text-opacity-60`}>
+            <th class="p-3 m-3 text-gray-300 text-opacity-60">
               English
             </th>
-            <th class={tw`p-3 m-3 text-gray-300 text-opacity-60`}>
+            <th class="p-3 m-3 text-gray-300 text-opacity-60">
               Translation
             </th>
-            <th class={tw`p-3 m-3 text-gray-300 text-opacity-60`}>
+            <th class="p-3 m-3 text-gray-300 text-opacity-60">
               Transcription
             </th>
           </tr>
