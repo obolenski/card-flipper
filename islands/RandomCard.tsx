@@ -81,6 +81,10 @@ export default function RandomCard(props: RandomCardProps) {
       <div class="flex-1
         flex items-center justify-center flex-col 
         text-white text-opacity-20">
+        <LikeButtonComponent
+          onClick={onLikeButtonClick}
+          isActive={favCards.includes(currentCard?._id ?? "")}
+        />
       </div>
       <div class="flex-1 h-full flex items-center justify-center flex-col min-w-[80vw] sm:min-w-[20vw]">
         {currentCard &&
@@ -97,16 +101,17 @@ export default function RandomCard(props: RandomCardProps) {
       <div class="flex-1 flex items-center justify-center flex-col">
         <a
           onClick={() => serveNewCard()}
-          class="font-bold text-white bg-gray-900 shadow rounded-2xl p-5 bottom-20 active:bg-gray-600 hover:bg-gray-800 hover:shadow-2xl transition-all"
+          class="p-5 m-5
+          flex justify-center items-center
+          cursor-pointer font-bold
+          bg-white bg-opacity-20
+          rounded-2xl shadow
+          hover:(shadow-2xl bg-opacity-50)
+          active:(bg-opacity-80)
+          transition-all"
         >
           ANOTHER
         </a>
-        {currentCard && (
-          <LikeButtonComponent
-            onClick={onLikeButtonClick}
-            isActive={favCards.includes(currentCard._id)}
-          />
-        )}
 
         <p class="text-white text-opacity-20">
           (hotkey: spacebar
