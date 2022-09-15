@@ -1,43 +1,56 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
-import { AppUser, LanguageCard, UserFavs } from "../utils/types.ts";
 import Main from "../components/Main.tsx";
-import RandomCard from "../islands/RandomCard.tsx";
-import * as mongoApi from "../services/mongoApi.ts";
+import { AppUser } from "../utils/types.ts";
 import Header from "../components/Header.tsx";
 
 export const handler: Handlers<{
-  cards: LanguageCard[];
   user: AppUser;
-  userFavs: UserFavs;
   googleLoginUrl: string;
 }> = {
-  async GET(req, ctx) {
-    const cards = await mongoApi.getAllCards();
+  GET(req, ctx) {
     const user = ctx.state.user as AppUser;
-    const userFavs = await mongoApi.getUserFavs(user?.email);
     const googleLoginUrl = ctx.state.googleLoginUrl as string;
     return ctx.render({
-      cards: cards,
       user: user,
-      userFavs: userFavs,
       googleLoginUrl: googleLoginUrl,
     });
   },
 };
 
-export default function Random(
+export default function User(
   props: PageProps<{
-    cards: LanguageCard[];
     user: AppUser;
-    userFavs: UserFavs;
     googleLoginUrl: string;
   }>,
 ) {
-  const { cards, user, googleLoginUrl, userFavs } = props.data;
+  const { user, googleLoginUrl } = props.data;
   return (
     <Main>
       <Header user={user} googleLoginUrl={googleLoginUrl} />
-      <RandomCard cards={cards} userFavs={userFavs} />
+      <div class="w-full flex flex-col items-center justify-center flex-grow-1
+                    text-4xl text-gray-50 text-opacity-60 text-center font-serif font-bold">
+        <h1 class="m-10">Flip all cards or only your favourites?</h1>
+        <a
+          href="/random/all"
+          class="p-2 m-2 w-60 rounded-2xl
+          bg-white bg-opacity-10
+          hover:bg-white hover:bg-opacity-20
+          active:bg-white active:bg-opacity-80
+          transition-all"
+        >
+          All
+        </a>
+        <a
+          href="/random/all"
+          class="p-2 m-2 w-60 rounded-2xl
+          bg-white bg-opacity-10
+          hover:bg-white hover:bg-opacity-20
+          active:bg-white active:bg-opacity-80
+          transition-all"
+        >
+          Fav only
+        </a>
+      </div>
     </Main>
   );
 }
