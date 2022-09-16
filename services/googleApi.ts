@@ -87,5 +87,9 @@ export const revokeAccessToken = async (accessToken: string) => {
       'Content-Type': 'application/x-www-form-urlencoded',
     },
   }
-  await axiod.default(config)
+  await axiod
+    .default(config)
+    .catch((e) =>
+      console.log('Error revoking Google token: ' + JSON.stringify(e))
+    )
 }
