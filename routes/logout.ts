@@ -22,6 +22,10 @@ export const handler: Handlers = {
       deleteCookie(response.headers, 'cardflipper_access_token')
     }
 
+    deleteCookie(response.headers, 'cardflipper_user_info_avatarUrl')
+    deleteCookie(response.headers, 'cardflipper_user_info_email')
+    deleteCookie(response.headers, 'cardflipper_user_info_name')
+
     return response
   },
 }

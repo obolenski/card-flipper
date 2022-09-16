@@ -15,6 +15,13 @@ export async function handler(
   const redirectUrl = req.url.split('?')[0]
   ctx.state.googleLoginUrl = googleApi.getGoogleUrl(redirectUrl)
 
+  const storedUserInfo = buildUserFromCookies(req)
+  if (storedUserInfo) {
+    ctx.state.user = storedUserInfo
+    const response = await ctx.next()
+    return response
+  }
+
   const existingRefreshToken = getCookies(req.headers)[
     'cardflipper_refresh_token'
   ]
@@ -29,6 +36,7 @@ export async function handler(
     if (user) {
       ctx.state.user = user
       const response = await ctx.next()
+      setUserDataCookies(response, user)
       return response
     }
   } else if (existingAcessToken) {
@@ -36,6 +44,7 @@ export async function handler(
     if (user) {
       ctx.state.user = user
       const response = await ctx.next()
+      setUserDataCookies(response, user)
       return response
     }
   }
@@ -54,24 +63,73 @@ export async function handler(
   if (userData) {
     ctx.state.user = userData
     const response = await ctx.next()
-    if (refreshToken) {
-      setCookie(response.headers, {
-        name: 'cardflipper_refresh_token',
-        value: refreshToken,
-        maxAge: 60 * 60 * 24 * 7,
-        httpOnly: true,
-        path: '/',
-      })
-    }
-    setCookie(response.headers, {
-      name: 'cardflipper_access_token',
-      value: accessToken,
-      maxAge: 60 * 60 * 24 * 7,
-      httpOnly: true,
-      path: '/',
-    })
+    setAllCookies(response, refreshToken, accessToken, userData)
     return response
   }
 
   return await ctx.next()
+}
+
+function setAllCookies(
+  response: Response,
+  refreshToken: string,
+  accessToken: string,
+  userData: AppUser
+) {
+  if (refreshToken) {
+    setCookie(response.headers, {
+      name: 'cardflipper_refresh_token',
+      value: refreshToken,
+      maxAge: 60 * 60 * 24 * 7,
+      httpOnly: true,
+      path: '/',
+    })
+  }
+  setCookie(response.headers, {
+    name: 'cardflipper_access_token',
+    value: accessToken,
+    maxAge: 60 * 60 * 24 * 7,
+    httpOnly: true,
+    path: '/',
+  })
+  setUserDataCookies(response, userData)
+}
+
+function setUserDataCookies(response: Response, userData: AppUser) {
+  setCookie(response.headers, {
+    name: 'cardflipper_user_info_avatarUrl',
+    value: userData.avatarUrl,
+    maxAge: 900,
+    httpOnly: true,
+    path: '/',
+  })
+  setCookie(response.headers, {
+    name: 'cardflipper_user_info_email',
+    value: userData.email,
+    maxAge: 900,
+    httpOnly: true,
+    path: '/',
+  })
+  setCookie(response.headers, {
+    name: 'cardflipper_user_info_name',
+    value: userData.name.replace(' ', '+'),
+    httpOnly: true,
+    maxAge: 900,
+    path: '/',
+  })
+}
+
+function buildUserFromCookies(req: Request) {
+  const avatarUrl = getCookies(req.headers)['cardflipper_user_info_avatarUrl']
+  const email = getCookies(req.headers)['cardflipper_user_info_email']
+  const name = getCookies(req.headers)['cardflipper_user_info_name']
+  if (avatarUrl && email && name) {
+    const user: AppUser = {
+      name: name.replace('+', ' '),
+      email: email,
+      avatarUrl: avatarUrl,
+    }
+    return user
+  }
+  return undefined
 }
