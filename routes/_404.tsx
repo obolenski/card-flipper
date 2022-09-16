@@ -12,10 +12,10 @@ export default function NotFoundPage({ url }: UnknownPageProps) {
           <small>{url.pathname} page not found</small>
           <a
             href="/"
-            class="font-bold p-2 rounded-2xl
-            bg-gray-900 bg-opacity-50
-            hover:bg-white hover:bg-opacity-10
-            active:bg-white active:bg-opacity-20
+            class="p-2 m-2 w-60 rounded-2xl
+            bg-white bg-opacity-10
+            hover:bg-white hover:bg-opacity-20
+            active:bg-white active:bg-opacity-80
             transition-all"
           >
             Go to homepage

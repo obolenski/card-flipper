@@ -12,12 +12,23 @@ export const handler: Handlers<{
   googleLoginUrl: string;
 }> = {
   async GET(req, ctx) {
+    const allowedPaths = ["all", "fav"];
+    const lastUrlSegment = req.url.split("?")[0].split("/").pop() ?? "";
+
+    if (!allowedPaths.includes(lastUrlSegment)) {
+      return ctx.renderNotFound();
+    }
+
     const user = ctx.state.user as AppUser;
 
-    const [cards, userFavs] = await Promise.all([
+    const [allCards, userFavs] = await Promise.all([
       mongoApi.getAllCards(),
       mongoApi.getUserFavs(user?.email),
     ]);
+
+    const cards = lastUrlSegment == "all"
+      ? allCards
+      : allCards.filter((card) => userFavs.cardIds.includes(card._id));
 
     const googleLoginUrl = ctx.state.googleLoginUrl as string;
     return ctx.render({

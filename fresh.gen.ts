@@ -11,9 +11,10 @@ import * as $4 from "./routes/api/postallcards.ts";
 import * as $5 from "./routes/index.tsx";
 import * as $6 from "./routes/logout.ts";
 import * as $7 from "./routes/random.tsx";
-import * as $8 from "./routes/random/all.tsx";
-import * as $9 from "./routes/tables/[table].tsx";
-import * as $10 from "./routes/user.tsx";
+import * as $8 from "./routes/random/[setOfCards].tsx";
+import * as $9 from "./routes/tables.tsx";
+import * as $10 from "./routes/tables/[setOfCards].tsx";
+import * as $11 from "./routes/user.tsx";
 import * as $$0 from "./islands/LikeButton.tsx";
 import * as $$1 from "./islands/RandomCard.tsx";
 
@@ -27,9 +28,10 @@ const manifest = {
     "./routes/index.tsx": $5,
     "./routes/logout.ts": $6,
     "./routes/random.tsx": $7,
-    "./routes/random/all.tsx": $8,
-    "./routes/tables/[table].tsx": $9,
-    "./routes/user.tsx": $10,
+    "./routes/random/[setOfCards].tsx": $8,
+    "./routes/tables.tsx": $9,
+    "./routes/tables/[setOfCards].tsx": $10,
+    "./routes/user.tsx": $11,
   },
   islands: {
     "./islands/LikeButton.tsx": $$0,

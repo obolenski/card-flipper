@@ -17,7 +17,7 @@ export const handler: Handlers<{
   },
 };
 
-export default function RandomCardPage(
+export default function TablesPage(
   props: PageProps<{
     user: AppUser;
     googleLoginUrl: string;
@@ -27,10 +27,10 @@ export default function RandomCardPage(
   return (
     <Main>
       <Header user={user} googleLoginUrl={googleLoginUrl} />
-      <div class="w-full flex flex-col items-center justify-center flex-grow-1 
-      text-4xl text-gray-50 text-opacity-60 text-center font-serif font-bold">
+      <div class="w-full flex flex-col items-center justify-center flex-grow-1
+                    text-4xl text-gray-50 text-opacity-60 text-center font-serif font-bold">
         <a
-          href="/random/all"
+          href="/tables/all"
           class="p-2 m-2 w-60 rounded-2xl
           bg-white bg-opacity-10
           hover:bg-white hover:bg-opacity-20
@@ -40,7 +40,7 @@ export default function RandomCardPage(
           All cards
         </a>
         <a
-          href="/random/fav"
+          href="/tables/fav"
           class="p-2 m-2 w-60 rounded-2xl
           bg-white bg-opacity-10
           hover:bg-white hover:bg-opacity-20

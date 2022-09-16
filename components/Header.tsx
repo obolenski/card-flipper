@@ -32,7 +32,7 @@ export default function Header(props: HeaderProps) {
           }
         />
         <HeaderIcon
-          href="/tables/all"
+          href="/tables"
           tooltip="Browse cards"
           icon={
             <svg

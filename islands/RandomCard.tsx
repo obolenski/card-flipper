@@ -99,10 +99,10 @@ export default function RandomCard(props: RandomCardProps) {
         </p>
       </div>
       <div class="flex-1 flex items-center justify-center flex-col">
-        <a
+        <button
           onClick={() => serveNewCard()}
           class="p-5 m-5
-          flex justify-center items-center
+          relative flex justify-center content-center
           cursor-pointer font-bold
           bg-white bg-opacity-20
           rounded-2xl shadow
@@ -111,20 +111,11 @@ export default function RandomCard(props: RandomCardProps) {
           transition-all"
         >
           ANOTHER
-        </a>
-
-        <p class="text-white text-opacity-20">
-          (hotkey: spacebar
-          <svg
-            class="inline"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            style="fill: rgba(255, 255, 255, 0.2);transform: ;msFilter:;"
-          >
-            <path d="M17 13H7V9H5v6h14V9h-2z"></path>
-          </svg>)
-        </p>
+          <div class="absolute bottom-0
+            opacity-50 text-xs">
+            (spacebar)
+          </div>
+        </button>
       </div>
     </div>
   );
