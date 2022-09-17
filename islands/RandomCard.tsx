@@ -22,7 +22,7 @@ export default function RandomCard(props: RandomCardProps) {
   };
 
   const serveNewCard = () => {
-    setCounter(counter + 1);
+    setCounter((prev) => prev + 1);
     setCurrentCard(getRandomCard());
   };
 
@@ -68,11 +68,11 @@ export default function RandomCard(props: RandomCardProps) {
         " ": () => {
           serveNewCard();
         },
-        "shift": () => setFlipVisibility(!flipVisibility),
+        "shift": () => setFlipVisibility((prev) => !prev),
       });
       return (() => unregister());
     },
-    [counter, flipVisibility],
+    [],
   );
 
   return (
