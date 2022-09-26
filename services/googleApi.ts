@@ -73,7 +73,6 @@ export const getUserData = async (
     name: userData.name,
     email: userData.email,
     avatarUrl: userData.picture,
-    accessToken: accessToken,
   }
 
   return user
