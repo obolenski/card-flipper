@@ -4,28 +4,43 @@ import Card from "../components/Card.tsx";
 import { hotkeys } from "https://esm.sh/@ekwoka/hotkeys@1.0.1";
 import LikeButtonComponent from "../components/LikeButtonComponent.tsx";
 import { RepeatIcon } from "../components/Navigation/Icons.tsx";
-import { createRef } from "preact";
+import { JSXInternal } from "https://esm.sh/v94/preact@10.11.0/src/jsx.d.ts";
 
 interface RandomCardProps {
-  cards: LanguageCard[];
+  allCards: LanguageCard[];
   userFavs: UserFavs;
 }
 export default function RandomCard(props: RandomCardProps) {
+  const allCardsSorted = props.allCards.sort((a, b) =>
+    a.sourceLangText.localeCompare(b.sourceLangText)
+  );
+
+  const [wokingCards, setWorkingCards] = useState(allCardsSorted);
   const [currentCard, setCurrentCard] = useState<LanguageCard>();
   const [counter, setCounter] = useState(1);
   const [flipVisibility, setFlipVisibility] = useState(false);
   const [favCards, setFavCards] = useState(props.userFavs.cardIds);
+  const [favOnlyMode, setFavOnlyMode] = useState(false);
+  const [randomMode, setRandomMode] = useState(true);
 
   const userEmail = props.userFavs.email;
 
   const getRandomCard = () => {
-    const randomIndex = Math.floor(Math.random() * props.cards.length);
-    return props.cards[randomIndex];
+    const randomIndex = Math.floor(Math.random() * wokingCards.length);
+    return wokingCards[randomIndex];
+  };
+
+  const getNextCard = () => {
+    const currentIndex = wokingCards.findIndex((card) =>
+      card._id == currentCard?._id
+    );
+    return wokingCards[(currentIndex + 1) % wokingCards.length];
   };
 
   const serveNewCard = () => {
     setCounter((prev) => prev + 1);
-    setCurrentCard(getRandomCard());
+    if (randomMode) setCurrentCard(getRandomCard());
+    else setCurrentCard(getNextCard);
   };
 
   const onLikeButtonClick = () => {
@@ -64,14 +79,23 @@ export default function RandomCard(props: RandomCardProps) {
     [],
   );
 
+  useEffect(() => {
+    if (favOnlyMode) {
+      const favs = allCardsSorted.filter((card) => favCards.includes(card._id));
+      setWorkingCards(favs);
+    } else setWorkingCards(allCardsSorted);
+  }, [favOnlyMode]);
+
   useEffect(
     () => {
       const unregister = hotkeys({
         " ": () => {
           const nextBtn = document.getElementById("nextButton");
           nextBtn?.classList.remove("bg-opacity-20");
+          nextBtn?.classList.add("bg-opacity-80");
           nextBtn?.click();
           setTimeout(() => {
+            nextBtn?.classList.remove("bg-opacity-80");
             nextBtn?.classList.add("bg-opacity-20");
           }, 200);
         },
@@ -82,9 +106,18 @@ export default function RandomCard(props: RandomCardProps) {
     [],
   );
 
+  const onToggleFavOnlyMode = (
+    e: JSXInternal.TargetedEvent<HTMLInputElement, Event>,
+  ): void => setFavOnlyMode((e.target as HTMLInputElement)?.checked);
+
+  const onToggleRandomMode = (
+    e: JSXInternal.TargetedEvent<HTMLInputElement, Event>,
+  ): void => setRandomMode((e.target as HTMLInputElement)?.checked);
+
   return (
     <div class="h-full w-full
-      flex items-center justify-center flex-col">
+      flex items-center justify-around flex-col">
+      <div class="hidden text-opacity-5"></div>
       <div class="text-white text-opacity-20 text-xs font-light font-mono">
         counter: {counter} (<a
           class="cursor-pointer text-white text-opacity-20 active:text-opacity-60 hover:text-opacity-40 transition-all duration-300"
@@ -93,9 +126,34 @@ export default function RandomCard(props: RandomCardProps) {
           reset
         </a>)
       </div>
-      <div class="h-full flex items-center justify-center flex-col min-w-[80vw] sm:min-w-[33vw]">
-        {currentCard &&
-          <Card card={currentCard} flipVisibility={flipVisibility} />}
+      <div class="flex items-center justify-around min-w-[40vh]">
+        <Toggle
+          checked={favOnlyMode}
+          onInput={onToggleFavOnlyMode}
+          id="favonly"
+        >
+          Only favs
+        </Toggle>
+        <Toggle
+          checked={randomMode}
+          onInput={onToggleRandomMode}
+          id="randommode"
+        >
+          Random
+        </Toggle>
+      </div>
+      <div class="flex items-center justify-center flex-col min-w-[80vw] sm:min-w-[33vw]">
+        <Card
+          card={currentCard ??
+            {
+              _id: "",
+              sourceLangText: "",
+              targetLangText: "",
+              targetLangTranscription: "",
+              category: "",
+            }}
+          flipVisibility={flipVisibility}
+        />
       </div>
       <div class="flex items-center justify-center">
         <LikeButtonComponent

@@ -45,7 +45,7 @@ export default function MainPage(
         googleLoginUrl={googleLoginUrl}
         path={props.url.pathname}
       />
-      <RandomCard cards={cards} userFavs={userFavs} />
+      <RandomCard allCards={cards} userFavs={userFavs} />
     </Main>
   );
 }
