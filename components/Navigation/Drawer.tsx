@@ -1,6 +1,4 @@
-import { isPosixPathSeparator } from "https://deno.land/std@0.150.0/path/_util.ts";
 import { h } from "preact/src/index";
-import CollapsibleNavGroup from "../../islands/CollapsibleNavGroup.tsx";
 import { MenuIcon } from "./Icons.tsx";
 import NavLink from "./NavLink.tsx";
 
