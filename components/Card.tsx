@@ -7,7 +7,7 @@ interface CardProps {
 
 export default function Card(props: CardProps) {
   return (
-    <div class="cursor-pointer h-3/4 sm:h-1/2 w-full min-w-max relative m-auto ease-in group">
+    <div class="cursor-pointer h-3/4 min-h-[40vh] w-full min-w-max relative m-auto ease-in group">
       <div class="h-full w-full min-w-max absolute 
         bg-white bg-opacity-10 text-gray-200 font-serif font-bold
         rounded-xl shadow-xl
