@@ -3,6 +3,8 @@ import { LanguageCard, UserFavs } from "../utils/types.ts";
 import Card from "../components/Card.tsx";
 import { hotkeys } from "https://esm.sh/@ekwoka/hotkeys@1.0.1";
 import LikeButtonComponent from "../components/LikeButtonComponent.tsx";
+import { RepeatIcon } from "../components/Navigation/Icons.tsx";
+import { createRef } from "preact";
 
 interface RandomCardProps {
   cards: LanguageCard[];
@@ -66,7 +68,12 @@ export default function RandomCard(props: RandomCardProps) {
     () => {
       const unregister = hotkeys({
         " ": () => {
-          serveNewCard();
+          const nextBtn = document.getElementById("nextButton");
+          nextBtn?.classList.remove("bg-opacity-20");
+          nextBtn?.click();
+          setTimeout(() => {
+            nextBtn?.classList.add("bg-opacity-20");
+          }, 200);
         },
         "shift": () => setFlipVisibility((prev) => !prev),
       });
@@ -77,45 +84,41 @@ export default function RandomCard(props: RandomCardProps) {
 
   return (
     <div class="h-full w-full
-      flex items-center justify-center flex-col sm:flex-row">
-      <div class="flex-1
-        flex items-center justify-center flex-col 
-        text-white text-opacity-20">
+      flex items-center justify-center flex-col">
+      <div class="text-white text-opacity-20 text-xs font-light font-mono">
+        counter: {counter} (<a
+          class="cursor-pointer text-white text-opacity-20 active:text-opacity-60 hover:text-opacity-40 transition-all duration-300"
+          onClick={() => setCounter(1)}
+        >
+          reset
+        </a>)
+      </div>
+      <div class="h-full flex items-center justify-center flex-col min-w-[80vw] sm:min-w-[33vw]">
+        {currentCard &&
+          <Card card={currentCard} flipVisibility={flipVisibility} />}
+      </div>
+      <div class="flex items-center justify-center">
         <LikeButtonComponent
           onClick={onLikeButtonClick}
           isActive={favCards.includes(currentCard?._id ?? "")}
         />
-      </div>
-      <div class="flex-1 h-full flex items-center justify-center flex-col min-w-[80vw] sm:min-w-[20vw]">
-        {currentCard &&
-          <Card card={currentCard} flipVisibility={flipVisibility} />}
-        <p class="text-white text-opacity-20 absolute bottom-5">
-          counter: {counter} (<a
-            class="cursor-pointer text-white text-opacity-20 active:text-opacity-60 hover:text-opacity-40"
-            onClick={() => setCounter(1)}
-          >
-            reset
-          </a>)
-        </p>
-      </div>
-      <div class="flex-1 flex items-center justify-center flex-col">
-        <button
+        <a
+          id="nextButton"
           onClick={() => serveNewCard()}
-          class="p-5 m-5
-          relative flex justify-center content-center
-          cursor-pointer font-bold
+          class="p-3 m-5 h-12
+          flex items-center
+          cursor-pointer
           bg-white bg-opacity-20
           rounded-2xl shadow
           hover:(shadow-2xl bg-opacity-50)
           active:(bg-opacity-80)
-          transition-all"
+          transition-all duration-300 align-middle"
         >
-          ANOTHER
-          <div class="absolute bottom-0
-            opacity-50 text-xs">
-            (spacebar)
-          </div>
-        </button>
+          <RepeatIcon />(
+          <kbd class="kbd opacity-50">
+            space
+          </kbd>)
+        </a>
       </div>
     </div>
   );

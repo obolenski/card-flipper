@@ -11,8 +11,8 @@ export default function AllCardsTable(props: CardTableProps) {
   const rows = props.cards.map((card) => (
     <tr
       key={card._id}
-      class=" font-bold group
-      hover:(bg-white bg-opacity-10 shadow) transition-all"
+      class="font-bold group
+      hover:(bg-white bg-opacity-10 shadow) transition-all duration-300"
     >
       <td class="p-3 m-3 border-1 border-opacity-10 border-gray-50">
         {card.sourceLangText}

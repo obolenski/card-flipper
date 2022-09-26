@@ -1,4 +1,4 @@
-import Main from "../components/Main.tsx";
+import Main from "../components/Navigation/Main.tsx";
 import { UnknownPageProps } from "$fresh/server.ts";
 
 export default function NotFoundPage({ url }: UnknownPageProps) {
@@ -16,7 +16,7 @@ export default function NotFoundPage({ url }: UnknownPageProps) {
             bg-white bg-opacity-10
             hover:bg-white hover:bg-opacity-20
             active:bg-white active:bg-opacity-80
-            transition-all"
+            transition-all duration-300"
           >
             Go to homepage
           </a>
