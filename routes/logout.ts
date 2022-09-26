@@ -3,7 +3,7 @@ import { deleteCookie, getCookies } from '$std/http/cookie.ts'
 import * as googleApi from '../services/googleApi.ts'
 
 export const handler: Handlers = {
-  async GET(req, ctx) {
+  async GET(req, _ctx) {
     const response = new Response('', {
       status: 307,
       headers: { Location: '/' },
