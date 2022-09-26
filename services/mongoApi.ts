@@ -2,10 +2,6 @@ import * as axiod from 'https://deno.land/x/axiod@0.20.0-0/mod.ts'
 import { MongoAPIBaseUrl, MongoApiKey, MongoCluster } from '../utils/env.ts'
 import { LanguageCard, UserFavs } from '../utils/types.ts'
 
-async function stall(stallTime = 3000) {
-  await new Promise((resolve) => setTimeout(resolve, stallTime))
-}
-
 export const getAllCards = async (): Promise<LanguageCard[]> => {
   const data = JSON.stringify({
     collection: 'cards',
