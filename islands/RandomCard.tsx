@@ -5,6 +5,7 @@ import { hotkeys } from "https://esm.sh/@ekwoka/hotkeys@1.0.1";
 import LikeButtonComponent from "../components/LikeButtonComponent.tsx";
 import { RepeatIcon } from "../components/Navigation/Icons.tsx";
 import { JSXInternal } from "https://esm.sh/v94/preact@10.11.0/src/jsx.d.ts";
+import { Toggle } from "./Toggle.tsx";
 
 interface RandomCardProps {
   allCards: LanguageCard[];
