@@ -22,38 +22,6 @@ export const Drawer = (props: { path: string }): h.JSX.Element => (
             transition-all
             duration-300
             group-hover:(left-0) group-focus:(left-0)">
-      <NavGroup heading="Flip cards:">
-        <NavLink href="/random/all" text="All" path={props.path} />
-        <NavLink href="/random/fav" text="Favourites" path={props.path} />
-        <CollapsibleNavGroup
-          title="Test collapsible"
-          links={[
-            { href: "/", text: "test" },
-            { href: "/", text: "test" },
-          ]}
-        />
-        <CollapsibleNavGroup
-          title="Test collapsible (long)"
-          links={[
-            { href: "/", text: "test" },
-            { href: "/", text: "test" },
-            { href: "/", text: "test" },
-            { href: "/", text: "test" },
-            { href: "/", text: "test" },
-            { href: "/", text: "test" },
-            { href: "/", text: "test" },
-            { href: "/", text: "test" },
-            { href: "/", text: "test" },
-            { href: "/", text: "test" },
-            { href: "/", text: "test" },
-            { href: "/", text: "test" },
-            { href: "/", text: "test" },
-            { href: "/", text: "test" },
-            { href: "/", text: "test" },
-            { href: "/", text: "test" },
-          ]}
-        />
-      </NavGroup>
       <NavGroup heading="Browse cards:">
         <NavLink href="/tables/all" text="All" path={props.path} />
         <NavLink href="/tables/fav" text="Favourites" path={props.path} />
