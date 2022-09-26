@@ -11,9 +11,9 @@ export const Drawer = (props: { path: string }): h.JSX.Element => (
         transition-all">
       <MenuIcon />
     </div>
-    <div class="fixed top-0 left-[-500px] z-10
+    <div class="fixed top-0 left-[-50vw] z-10
             overflow-auto
-            h-screen min-w-[40vh]
+            h-screen min-w-[20vw]
             flex flex-col
             shadow-2xl bg-gray-700
             text-white text-opacity-50 font-bold whitespace-nowrap 

@@ -5,7 +5,9 @@ import { hotkeys } from "https://esm.sh/@ekwoka/hotkeys@1.0.1";
 import LikeButtonComponent from "../components/LikeButtonComponent.tsx";
 import { RepeatIcon } from "../components/Navigation/Icons.tsx";
 import { JSXInternal } from "https://esm.sh/v94/preact@10.11.0/src/jsx.d.ts";
-import { Toggle } from "./Toggle.tsx";
+import Toggle from "./Toggle.tsx";
+import { cardCategories as allCategories } from "../utils/cardCategories.ts";
+import CategorySelector from "./CategorySelector.tsx";
 
 interface RandomCardProps {
   allCards: LanguageCard[];
@@ -16,26 +18,27 @@ export default function RandomCard(props: RandomCardProps) {
     a.sourceLangText.localeCompare(b.sourceLangText)
   );
 
-  const [wokingCards, setWorkingCards] = useState(allCardsSorted);
+  const [workingCards, setWorkingCards] = useState(allCardsSorted);
   const [currentCard, setCurrentCard] = useState<LanguageCard>();
   const [counter, setCounter] = useState(1);
   const [flipVisibility, setFlipVisibility] = useState(false);
   const [favCards, setFavCards] = useState(props.userFavs.cardIds);
   const [favOnlyMode, setFavOnlyMode] = useState(false);
   const [randomMode, setRandomMode] = useState(true);
+  const [activeCategories, setActiveCategories] = useState(allCategories);
 
   const userEmail = props.userFavs.email;
 
   const getRandomCard = () => {
-    const randomIndex = Math.floor(Math.random() * wokingCards.length);
-    return wokingCards[randomIndex];
+    const randomIndex = Math.floor(Math.random() * workingCards.length);
+    return workingCards[randomIndex];
   };
 
   const getNextCard = () => {
-    const currentIndex = wokingCards.findIndex((card) =>
+    const currentIndex = workingCards.findIndex((card) =>
       card._id == currentCard?._id
     );
-    return wokingCards[(currentIndex + 1) % wokingCards.length];
+    return workingCards[(currentIndex + 1) % workingCards.length];
   };
 
   const serveNewCard = () => {
@@ -55,8 +58,10 @@ export default function RandomCard(props: RandomCardProps) {
       }));
     } else {
       setFavCards([
-        ...favCards,
-        currentCard._id,
+        ...new Set([
+          ...favCards,
+          currentCard._id,
+        ]),
       ]);
     }
 
@@ -82,10 +87,14 @@ export default function RandomCard(props: RandomCardProps) {
 
   useEffect(() => {
     if (favOnlyMode) {
-      const favs = allCardsSorted.filter((card) => favCards.includes(card._id));
+      const favs = allCardsSorted.filter((card) =>
+        activeCategories.includes(card.category)
+      ).filter((card) => favCards.includes(card._id));
       setWorkingCards(favs);
-    } else setWorkingCards(allCardsSorted);
-  }, [favOnlyMode]);
+    } else {setWorkingCards(allCardsSorted.filter((card) =>
+        activeCategories.includes(card.category)
+      ));}
+  }, [favOnlyMode, activeCategories]);
 
   useEffect(
     () => {
@@ -109,11 +118,15 @@ export default function RandomCard(props: RandomCardProps) {
 
   const onToggleFavOnlyMode = (
     e: JSXInternal.TargetedEvent<HTMLInputElement, Event>,
-  ): void => setFavOnlyMode((e.target as HTMLInputElement)?.checked);
+  ) => setFavOnlyMode((e.target as HTMLInputElement)?.checked);
 
   const onToggleRandomMode = (
     e: JSXInternal.TargetedEvent<HTMLInputElement, Event>,
-  ): void => setRandomMode((e.target as HTMLInputElement)?.checked);
+  ) => setRandomMode((e.target as HTMLInputElement)?.checked);
+
+  const onActiveCategoryChange = (categories: string[]) => {
+    setActiveCategories(categories);
+  };
 
   return (
     <div class="h-full w-full
@@ -127,7 +140,7 @@ export default function RandomCard(props: RandomCardProps) {
           reset
         </a>)
       </div>
-      <div class="flex items-center justify-around min-w-[40vh]">
+      <div class="flex items-center justify-around min-w-[40vw] font-light font-mono text-sm">
         <Toggle
           checked={favOnlyMode}
           onInput={onToggleFavOnlyMode}
@@ -135,6 +148,7 @@ export default function RandomCard(props: RandomCardProps) {
         >
           Only favs
         </Toggle>
+        <div class="m-1 border(l opacity-20 solid gray-200) h-1/2"></div>
         <Toggle
           checked={randomMode}
           onInput={onToggleRandomMode}
@@ -142,6 +156,10 @@ export default function RandomCard(props: RandomCardProps) {
         >
           Random
         </Toggle>
+        <div class="m-1 border(l opacity-20 solid gray-200) h-1/2"></div>
+        <CategorySelector
+          onActiveCategoryChange={onActiveCategoryChange}
+        />
       </div>
       <div class="flex items-center justify-center flex-col min-w-[80vw] sm:min-w-[33vw]">
         <Card

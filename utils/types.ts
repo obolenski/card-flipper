@@ -1,5 +1,6 @@
 export type LanguageCard = {
   _id: string
+  category: string
   sourceLangText: string
   targetLangText: string
   targetLangTranscription: string

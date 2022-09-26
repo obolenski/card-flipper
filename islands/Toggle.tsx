@@ -8,12 +8,12 @@ interface ToggleProps {
   children: string | h.JSX.Element;
 }
 
-export const Toggle = (props: ToggleProps) => {
+export default function Toggle(props: ToggleProps) {
   const opacity = props.checked ? "80" : "20";
   const colour = props.checked ? "yellow-200" : "gray-200";
   const onOff = props.checked ? "on" : "off";
   return (
-    <div class="m-3 font-light font-mono text-sm">
+    <div class="m-1">
       <input
         hidden
         checked={props.checked}
@@ -31,4 +31,4 @@ export const Toggle = (props: ToggleProps) => {
       </label>
     </div>
   );
-};
+}
