@@ -16,7 +16,7 @@ export const Drawer = (props: { path: string }): h.JSX.Element => (
             h-screen min-w-[20vw]
             flex flex-col
             shadow-2xl bg-gray-700
-            text-white text-opacity-50 font-bold whitespace-nowrap 
+            text-gray-200 text-opacity-50 font-bold whitespace-nowrap 
             transition-all
             duration-300
             group-hover:(left-0) group-focus:(left-0)">

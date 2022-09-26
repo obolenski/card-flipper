@@ -132,15 +132,15 @@ export default function RandomCard(props: RandomCardProps) {
     <div class="h-full w-full
       flex items-center justify-around flex-col">
       <div class="hidden text-opacity-5"></div>
-      <div class="text-white text-opacity-20 text-xs font-light font-mono">
+      <div class="text-gray-200 text-opacity-20 text-xs font-light font-mono">
         counter: {counter} (<a
-          class="cursor-pointer text-white text-opacity-20 active:text-opacity-60 hover:text-opacity-40 transition-all duration-300"
+          class="cursor-pointer text-gray-200 text-opacity-20 active:text-opacity-60 hover:text-opacity-40 transition-all duration-300"
           onClick={() => setCounter(1)}
         >
           reset
         </a>)
       </div>
-      <div class="flex items-center justify-around min-w-[40vw] font-light font-mono text-sm">
+      <div class="flex items-center justify-around min-w-[40vw] font-light font-mono text-sm transition-all">
         <Toggle
           checked={favOnlyMode}
           onInput={onToggleFavOnlyMode}
