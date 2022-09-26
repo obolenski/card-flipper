@@ -1,7 +1,7 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
-import Main from "../components/Main.tsx";
+import Main from "../components/Navigation/Main.tsx";
+import Header from "../components/Navigation/Header.tsx";
 import { AppUser } from "../utils/types.ts";
-import Header from "../components/Header.tsx";
 
 export const handler: Handlers<{
   user: AppUser;
@@ -27,7 +27,11 @@ export default function User(
   if (!user) {
     return (
       <Main>
-        <Header user={user} googleLoginUrl={googleLoginUrl} />
+        <Header
+          user={user}
+          googleLoginUrl={googleLoginUrl}
+          path={props.url.pathname}
+        />
         <div class="w-full flex flex-col items-center justify-center flex-grow-1
                     text-4xl text-gray-50 text-opacity-40 font-serif font-bold">
           <p>You are not logged in</p>
@@ -38,7 +42,11 @@ export default function User(
   }
   return (
     <Main>
-      <Header user={user} googleLoginUrl={googleLoginUrl} />
+      <Header
+        user={user}
+        googleLoginUrl={googleLoginUrl}
+        path={props.url.pathname}
+      />
       <div class="w-full flex flex-col items-center justify-center flex-grow-1">
         <div class="h-[50%] w-[50%] 
               flex flex-col items-center justify-around
