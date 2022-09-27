@@ -7,7 +7,7 @@ import { RepeatIcon } from "../components/Navigation/Icons.tsx";
 import { JSXInternal } from "https://esm.sh/v94/preact@10.11.0/src/jsx.d.ts";
 import Toggle from "./Toggle.tsx";
 import { cardCategories as allCategories } from "../utils/cardCategories.ts";
-import CategorySelector from "./CategorySelector.tsx";
+import MultiSelect from "./CategorySelector.tsx";
 
 interface RandomCardProps {
   allCards: LanguageCard[];
@@ -155,8 +155,11 @@ export default function RandomCard(props: RandomCardProps) {
         >
           Random
         </Toggle>
-        <CategorySelector
-          onActiveCategoryChange={onActiveCategoryChange}
+        <MultiSelect
+          onSelectionChange={onActiveCategoryChange}
+          options={allCategories}
+          defaultSelectedItems={allCategories}
+          labelText="Categories"
         />
       </div>
       <div class="flex items-center justify-center flex-col min-w-[80vw] sm:min-w-[33vw]">

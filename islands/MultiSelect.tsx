@@ -1,16 +1,20 @@
 import { JSXInternal } from "https://esm.sh/v94/preact@10.11.0/src/jsx.d.ts";
 import { useEffect, useState } from "preact/hooks";
-import { cardCategories as allCategories } from "../utils/cardCategories.ts";
-import DropdownOption from "./DropdownOption.tsx";
-interface CategorySelectorProps {
-  onActiveCategoryChange: (a: string[]) => void;
+import MultiSelectOption from "./MultiSelectOption.tsx";
+interface MultiSelectProps {
+  onSelectionChange: (a: string[]) => void;
+  options: string[];
+  defaultSelectedItems: string[];
+  labelText: string;
 }
 
-export default function CategorySelector(props: CategorySelectorProps) {
-  const [selectedItems, setSelectedItems] = useState(allCategories);
+export default function MultiSelect(props: MultiSelectProps) {
+  const [selectedItems, setSelectedItems] = useState(
+    props.defaultSelectedItems,
+  );
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const allCategoriesSelected = allCategories.length == selectedItems.length;
+  const allCategoriesSelected = props.options.length == selectedItems.length;
   const anyCategoriesSelected = selectedItems.length > 0;
 
   const dropdownContentScale = dropdownOpen ? "100" : "0";
@@ -44,7 +48,7 @@ export default function CategorySelector(props: CategorySelectorProps) {
   };
 
   const selectAll = () => {
-    setSelectedItems(allCategories);
+    setSelectedItems(props.options);
   };
 
   const deselectAll = () => {
@@ -53,7 +57,7 @@ export default function CategorySelector(props: CategorySelectorProps) {
 
   useEffect(() => {
     console.log("categories change in child! new: " + selectedItems);
-    props.onActiveCategoryChange(selectedItems);
+    props.onSelectionChange(selectedItems);
   }, [selectedItems]);
 
   return (
@@ -72,7 +76,7 @@ export default function CategorySelector(props: CategorySelectorProps) {
                 transition-all duration-300`}
         for={`showDropdown-input`}
       >
-        Categories: {selectedCount}
+        {props.labelText}: {selectedCount}
       </label>
       <div
         class={`scale-${dropdownContentScale} fixed bg-gray-900 bg-opacity-20 z-10 h-screen w-screen top-0 left-0 flex justify-center content-center`}
@@ -83,8 +87,8 @@ export default function CategorySelector(props: CategorySelectorProps) {
           onClick={(e) => e.stopPropagation()}
         >
           <div class="max-h-[40vh] overflow-auto">
-            {allCategories.map((category) => (
-              <DropdownOption
+            {props.options.map((category) => (
+              <MultiSelectOption
                 checked={selectedItems.includes(category)}
                 optionName={category}
                 onInput={onToggle}
@@ -92,12 +96,12 @@ export default function CategorySelector(props: CategorySelectorProps) {
             ))}
           </div>
           <hr class="opacity-20" />
-          <DropdownOption
+          <MultiSelectOption
             checked={!allCategoriesSelected}
             optionName="Select all"
             onInput={selectAll}
           />
-          <DropdownOption
+          <MultiSelectOption
             checked={anyCategoriesSelected}
             optionName="Clear"
             onInput={deselectAll}

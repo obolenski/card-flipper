@@ -6,7 +6,7 @@ interface DropdownOptionProps {
   onInput: JSXInternal.GenericEventHandler<HTMLInputElement>;
 }
 
-export default function DropdownOption(props: DropdownOptionProps) {
+export default function MultiSelectOption(props: DropdownOptionProps) {
   const opacity = props.checked ? "80" : "20";
   return (
     <div class="flex flex-col">
