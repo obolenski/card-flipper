@@ -25,7 +25,7 @@ export default function MultiSelect(props: MultiSelectProps) {
     ? "yellow-200"
     : "red-500";
 
-  const selectedCount = allCategoriesSelected
+  const labelAffix = allCategoriesSelected
     ? "all"
     : anyCategoriesSelected
     ? selectedItems.join(", ")
@@ -76,7 +76,7 @@ export default function MultiSelect(props: MultiSelectProps) {
                 transition-all duration-300`}
         for={`showDropdown-input`}
       >
-        {props.labelText}: {selectedCount}
+        {props.labelText}: {labelAffix}
       </label>
       <div
         class={`scale-${dropdownContentScale} fixed bg-gray-900 bg-opacity-20 z-10 h-screen w-screen top-0 left-0 flex justify-center content-center`}

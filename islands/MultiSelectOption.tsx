@@ -20,10 +20,10 @@ export default function MultiSelectOption(props: DropdownOptionProps) {
       />
       <label
         class={`text-gray-200 text-opacity-${opacity}
-    p-3
-    hover:bg-white hover:bg-opacity-10 
-    active:bg-white active:bg-opacity-20
-    transition-all duration-300`}
+        p-3
+        hover:bg-white hover:bg-opacity-10 
+        active:bg-white active:bg-opacity-20
+        transition-all duration-300`}
         for={`${props.optionName}-input`}
       >
         {props.optionName}
