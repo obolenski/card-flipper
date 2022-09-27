@@ -57,7 +57,7 @@ export default function CategorySelector(props: CategorySelectorProps) {
   }, [selectedItems]);
 
   return (
-    <div class="m-1 sm:max-w-sm max-w-[10rem] truncate">
+    <div class="m-1 sm:max-w-sm max-w-[15rem] truncate">
       <input
         hidden
         checked={dropdownOpen}

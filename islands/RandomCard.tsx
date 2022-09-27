@@ -140,7 +140,7 @@ export default function RandomCard(props: RandomCardProps) {
           reset
         </a>)
       </div>
-      <div class="flex items-center justify-around min-w-[40vw] font-light font-mono text-sm transition-all">
+      <div class="flex flex-wrap items-center justify-around min-w-[40vw] font-light font-mono text-sm transition-all">
         <Toggle
           checked={favOnlyMode}
           onInput={onToggleFavOnlyMode}
@@ -148,7 +148,6 @@ export default function RandomCard(props: RandomCardProps) {
         >
           Only favs
         </Toggle>
-        <div class="m-1 border(l opacity-20 solid gray-200) h-1/2"></div>
         <Toggle
           checked={randomMode}
           onInput={onToggleRandomMode}
@@ -156,7 +155,6 @@ export default function RandomCard(props: RandomCardProps) {
         >
           Random
         </Toggle>
-        <div class="m-1 border(l opacity-20 solid gray-200) h-1/2"></div>
         <CategorySelector
           onActiveCategoryChange={onActiveCategoryChange}
         />
