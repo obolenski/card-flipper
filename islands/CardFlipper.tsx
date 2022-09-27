@@ -7,13 +7,13 @@ import { RepeatIcon } from "../components/Navigation/Icons.tsx";
 import { JSXInternal } from "https://esm.sh/v94/preact@10.11.0/src/jsx.d.ts";
 import Toggle from "./Toggle.tsx";
 import { cardCategories as allCategories } from "../utils/cardCategories.ts";
-import MultiSelect from "./CategorySelector.tsx";
+import MultiSelect from "./MultiSelect.tsx";
 
-interface RandomCardProps {
+interface CardFlipperProps {
   allCards: LanguageCard[];
   userFavs: UserFavs;
 }
-export default function RandomCard(props: RandomCardProps) {
+export default function CardFlipper(props: CardFlipperProps) {
   const allCardsSorted = props.allCards.sort((a, b) =>
     a.sourceLangText.localeCompare(b.sourceLangText)
   );

@@ -2,7 +2,7 @@ import { Handlers, PageProps } from "$fresh/server.ts";
 import { AppUser, LanguageCard, UserFavs } from "../utils/types.ts";
 import Main from "../components/Navigation/Main.tsx";
 import Header from "../components/Navigation/Header.tsx";
-import RandomCard from "../islands/RandomCard.tsx";
+import CardFlipper from "../islands/CardFlipper.tsx";
 import * as mongoApi from "../services/mongoApi.ts";
 
 export const handler: Handlers<{
@@ -45,7 +45,7 @@ export default function MainPage(
         googleLoginUrl={googleLoginUrl}
         path={props.url.pathname}
       />
-      <RandomCard allCards={cards} userFavs={userFavs} />
+      <CardFlipper allCards={cards} userFavs={userFavs} />
     </Main>
   );
 }
