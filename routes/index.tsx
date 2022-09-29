@@ -7,19 +7,26 @@ import * as mongoApi from "../services/mongoApi.ts";
 
 export const handler: Handlers<{
   cards: LanguageCard[];
-  user: AppUser;
-  userFavs: UserFavs;
+  user?: AppUser;
+  userFavs?: UserFavs;
   googleLoginUrl: string;
 }> = {
   async GET(req, ctx) {
     const user = ctx.state.user as AppUser;
+    const googleLoginUrl = ctx.state.googleLoginUrl as string;
+
+    if (!user) {
+      const cards = await mongoApi.getAllCards();
+      return ctx.render({
+        cards: cards,
+        googleLoginUrl: googleLoginUrl,
+      });
+    }
 
     const [cards, userFavs] = await Promise.all([
       mongoApi.getAllCards(),
       mongoApi.getUserFavs(user?.email),
     ]);
-
-    const googleLoginUrl = ctx.state.googleLoginUrl as string;
     return ctx.render({
       cards: cards,
       user: user,
@@ -32,8 +39,8 @@ export const handler: Handlers<{
 export default function MainPage(
   props: PageProps<{
     cards: LanguageCard[];
-    user: AppUser;
-    userFavs: UserFavs;
+    user?: AppUser;
+    userFavs?: UserFavs;
     googleLoginUrl: string;
   }>,
 ) {

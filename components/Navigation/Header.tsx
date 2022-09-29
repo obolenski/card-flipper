@@ -4,7 +4,7 @@ import { IconButtonWithTooltip } from "./IconButtonWithTooltip.tsx";
 import { LoginIcon, LogoutIcon } from "./Icons.tsx";
 
 interface HeaderProps {
-  user: AppUser;
+  user?: AppUser;
   googleLoginUrl: string;
   path: string;
 }
@@ -16,7 +16,7 @@ export default function Header(props: HeaderProps) {
       sticky top-0 z-40">
       <div class="flex-1 flex-grow-1
         flex content-center">
-        <Drawer path={props.path} />
+        <Drawer path={props.path} authorized={!!props.user} />
       </div>
       <div class="flex-1 
         flex justify-center content-center">

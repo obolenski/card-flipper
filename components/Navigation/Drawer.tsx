@@ -2,7 +2,9 @@ import { h } from "preact/src/index";
 import { MenuIcon } from "./Icons.tsx";
 import NavLink from "./NavLink.tsx";
 
-export const Drawer = (props: { path: string }): h.JSX.Element => (
+export const Drawer = (
+  props: { path: string; authorized: boolean },
+): h.JSX.Element => (
   <div class="group" tabIndex={0}>
     <div class="fixed top-0 left-0
         rounded-2xl p-2 cursor-pointer
@@ -20,10 +22,16 @@ export const Drawer = (props: { path: string }): h.JSX.Element => (
             transition-all
             duration-300
             group-hover:(left-0) group-focus:(left-0)">
+      <NavLink href="/" text="Flip cards" path={props.path} />
       <NavGroup heading="Browse cards:">
         <NavLink href="/tables/all" text="All" path={props.path} />
-        <NavLink href="/tables/fav" text="Favourites" path={props.path} />
+        {props.authorized
+          ? <NavLink href="/tables/fav" text="Favourites" path={props.path} />
+          : <></>}
       </NavGroup>
+      {props.authorized && (
+        <NavLink href="/submit" text="Create" path={props.path} />
+      )}
     </div>
   </div>
 );

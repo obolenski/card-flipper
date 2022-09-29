@@ -1,5 +1,5 @@
 import { useEffect, useState } from "preact/hooks";
-import { LanguageCard, UserFavs } from "../utils/types.ts";
+import { AppUser, LanguageCard, UserFavs } from "../utils/types.ts";
 import Card from "./Card.tsx";
 import { hotkeys } from "https://esm.sh/@ekwoka/hotkeys@1.0.1";
 import LikeButtonComponent from "../components/LikeButtonComponent.tsx";
@@ -11,7 +11,8 @@ import MultiSelect from "./MultiSelect.tsx";
 
 interface CardFlipperProps {
   allCards: LanguageCard[];
-  userFavs: UserFavs;
+  userFavs?: UserFavs;
+  user?: AppUser;
 }
 export default function CardFlipper(props: CardFlipperProps) {
   const allCardsSorted = props.allCards.sort((a, b) =>
@@ -22,12 +23,12 @@ export default function CardFlipper(props: CardFlipperProps) {
   const [currentCard, setCurrentCard] = useState<LanguageCard>();
   const [counter, setCounter] = useState(1);
   const [flipVisibility, setFlipVisibility] = useState(false);
-  const [favCards, setFavCards] = useState(props.userFavs.cardIds);
+  const [favCards, setFavCards] = useState<string[]>(
+    props.userFavs?.cardIds || [],
+  );
   const [favOnlyMode, setFavOnlyMode] = useState(false);
   const [randomMode, setRandomMode] = useState(true);
   const [activeCategories, setActiveCategories] = useState(allCategories);
-
-  const userEmail = props.userFavs.email;
 
   const getRandomCard = () => {
     const randomIndex = Math.floor(Math.random() * workingCards.length);
@@ -49,6 +50,7 @@ export default function CardFlipper(props: CardFlipperProps) {
 
   const onLikeButtonClick = () => {
     if (!currentCard) return;
+    if (!props.user) return;
 
     const alreadyFav = favCards.includes(currentCard._id);
 
@@ -68,7 +70,7 @@ export default function CardFlipper(props: CardFlipperProps) {
     const method = alreadyFav ? "DELETE" : "POST";
 
     const data = {
-      email: userEmail,
+      email: props.user.email,
       cardId: currentCard._id,
     };
 
@@ -154,13 +156,15 @@ export default function CardFlipper(props: CardFlipperProps) {
         </div>
       </div>
       <div class="flex flex-wrap items-center justify-around min-w-[40vw] font-light font-mono text-sm transition-all">
-        <Toggle
-          checked={favOnlyMode}
-          onInput={onToggleFavOnlyMode}
-          id="favonly"
-        >
-          Only favs
-        </Toggle>
+        {props.user && (
+          <Toggle
+            checked={favOnlyMode}
+            onInput={onToggleFavOnlyMode}
+            id="favonly"
+          >
+            Only favs
+          </Toggle>
+        )}
         <Toggle
           checked={randomMode}
           onInput={onToggleRandomMode}
@@ -187,10 +191,12 @@ export default function CardFlipper(props: CardFlipperProps) {
         />
       </div>
       <div class="flex items-center justify-center">
-        <LikeButtonComponent
-          onClick={onLikeButtonClick}
-          isActive={favCards.includes(currentCard?._id ?? "")}
-        />
+        {props.user && (
+          <LikeButtonComponent
+            onClick={onLikeButtonClick}
+            isActive={favCards.includes(currentCard?._id ?? "")}
+          />
+        )}
         <a
           id="nextButton"
           onClick={() => serveNewCard()}
