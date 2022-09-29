@@ -3,7 +3,7 @@ import { AppUser, LanguageCard, UserFavs } from "../utils/types.ts";
 import Card from "./Card.tsx";
 import { hotkeys } from "https://esm.sh/@ekwoka/hotkeys@1.0.1";
 import LikeButtonComponent from "../components/LikeButtonComponent.tsx";
-import { RepeatIcon } from "../components/Navigation/Icons.tsx";
+import { NextIcon } from "../components/Navigation/Icons.tsx";
 import { JSXInternal } from "https://esm.sh/v94/preact@10.11.0/src/jsx.d.ts";
 import Toggle from "./Toggle.tsx";
 import { cardCategories as allCategories } from "../utils/cardCategories.ts";
@@ -190,7 +190,7 @@ export default function CardFlipper(props: CardFlipperProps) {
           flipVisibility={flipVisibility}
         />
       </div>
-      <div class="flex items-center justify-center">
+      <div class="flex items-center justify-center text-gray-200 text-opacity-50">
         {props.user && (
           <LikeButtonComponent
             onClick={onLikeButtonClick}
@@ -209,7 +209,7 @@ export default function CardFlipper(props: CardFlipperProps) {
           active:(bg-opacity-80)
           transition-all duration-300"
         >
-          <RepeatIcon />
+          <NextIcon />
         </a>
       </div>
       <div class="text-gray-200 text-opacity-20 text-xs font-light font-mono justify-around items-center min-w-[40vw] hidden sm:flex">

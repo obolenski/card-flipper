@@ -52,7 +52,7 @@ export default function MainPage(
         googleLoginUrl={googleLoginUrl}
         path={props.url.pathname}
       />
-      <CardFlipper allCards={cards} userFavs={userFavs} />
+      <CardFlipper allCards={cards} userFavs={userFavs} user={user} />
     </Main>
   );
 }
