@@ -21,6 +21,10 @@ export const handler: Handlers<{
 
     const user = ctx.state.user as AppUser;
 
+    if (lastUrlSegment == "fav" && !user) {
+      return ctx.renderNotFound();
+    }
+
     const [allCards, userFavs] = await Promise.all([
       mongoApi.getAllCards(),
       mongoApi.getUserFavs(user?.email),
