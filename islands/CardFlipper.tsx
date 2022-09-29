@@ -151,7 +151,7 @@ export default function CardFlipper(props: CardFlipperProps) {
               workingCards.length == 0 ? "red-500 animate-pulse" : "yellow-200"
             } text-opacity-80`}
           >
-            {workingCards.length}
+            {workingCards.length} / {props.allCards.length}
           </span>
         </div>
       </div>
