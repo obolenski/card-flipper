@@ -1,5 +1,5 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
-import { AppUser, CreateLanguageCardDto, UserFavs } from "../utils/types.ts";
+import { AppUser } from "../utils/types.ts";
 import Main from "../components/Navigation/Main.tsx";
 import Header from "../components/Navigation/Header.tsx";
 import CardCreator from "../islands/CardCreator.tsx";
@@ -7,10 +7,12 @@ import CardCreator from "../islands/CardCreator.tsx";
 export const handler: Handlers<{
   user: AppUser;
   googleLoginUrl: string;
-  submission?: CreateLanguageCardDto;
 }> = {
-  GET(_req, ctx) {
+  GET(req, ctx) {
     const user = ctx.state.user as AppUser;
+    if (!user) {
+      return ctx.renderNotFound();
+    }
     const googleLoginUrl = ctx.state.googleLoginUrl as string;
     return ctx.render({
       user: user,

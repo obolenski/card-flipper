@@ -1,4 +1,5 @@
 export type LanguageCard = {
+  [key: string]: string
   _id: string
   category: string
   sourceLangText: string
@@ -7,7 +8,15 @@ export type LanguageCard = {
   authorEmail: string
 }
 
+export type LanguageCardVM = {
+  [key: string]: string
+  sourceLangText: string
+  targetLangText: string
+  targetLangTranscription: string
+}
+
 export type CreateLanguageCardDto = {
+  [key: string]: string
   category: string
   sourceLangText: string
   targetLangText: string
