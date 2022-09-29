@@ -14,17 +14,20 @@ export default function AllCardsTable(props: CardTableProps) {
       class="font-bold group
       hover:(bg-white bg-opacity-10 shadow) transition-all duration-300"
     >
-      <td class="p-3 m-3 border-1 border-opacity-10 border-gray-50">
+      <td class="p-3 m-3">
         {card.sourceLangText}
       </td>
-      <td class="p-3 m-3 border-1 border-opacity-10 border-gray-50 text-xl">
+      <td class="p-3 m-3 text-xl">
         {card.targetLangText}
       </td>
-      <td class="p-3 m-3 border-1 border-opacity-10 border-gray-50">
+      <td class="p-3 m-3">
         {card.targetLangTranscription}
       </td>
+      <td class="p-3 m-3">
+        {card.category}
+      </td>
       {props.user && (
-        <td class="border-1 border-opacity-10 border-gray-50">
+        <td class="">
           <LikeButton
             cardId={card._id}
             activeOnFirstRender={props.userFavs?.cardIds?.includes(card._id)}
@@ -41,13 +44,16 @@ export default function AllCardsTable(props: CardTableProps) {
         <thead>
           <tr>
             <th class="p-3 m-3 text-gray-300 text-opacity-60">
-              English
+              Original
             </th>
             <th class="p-3 m-3 text-gray-300 text-opacity-60">
               Translation
             </th>
             <th class="p-3 m-3 text-gray-300 text-opacity-60">
               Transcription
+            </th>
+            <th class="p-3 m-3 text-gray-300 text-opacity-60">
+              Category
             </th>
           </tr>
         </thead>
