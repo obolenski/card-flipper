@@ -11,9 +11,8 @@ interface HeaderProps {
 
 export default function Header(props: HeaderProps) {
   return (
-    <div class="bg-opacity-0 text-gray-50 text-opacity-80
+    <div class="text-gray-50 text-opacity-80 bg-gray-800
       w-full flex justify-center content-center
-      mb-5
       sticky top-0 z-40">
       <div class="flex-1 flex-grow-1
         flex content-center">
