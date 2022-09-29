@@ -1,6 +1,6 @@
 import { useEffect, useState } from "preact/hooks";
 import { LanguageCard, UserFavs } from "../utils/types.ts";
-import Card from "../components/Card.tsx";
+import Card from "./Card.tsx";
 import { hotkeys } from "https://esm.sh/@ekwoka/hotkeys@1.0.1";
 import LikeButtonComponent from "../components/LikeButtonComponent.tsx";
 import { RepeatIcon } from "../components/Navigation/Icons.tsx";
@@ -130,7 +130,7 @@ export default function CardFlipper(props: CardFlipperProps) {
 
   return (
     <div class="h-full w-full
-      flex items-center justify-between flex-col">
+      flex items-center justify-around flex-col">
       <div class="hidden text-opacity-5"></div>
       <div class="text-gray-200 text-opacity-20 text-xs font-light font-mono flex flex-wrap justify-around items-center min-w-[40vw] transition-all duration-300">
         <div class="mx-5">
@@ -146,7 +146,7 @@ export default function CardFlipper(props: CardFlipperProps) {
           Cards in current pool:{" "}
           <span
             class={`text-${
-              workingCards.length == 0 ? "red-500" : "yellow-200"
+              workingCards.length == 0 ? "red-500 animate-pulse" : "yellow-200"
             } text-opacity-80`}
           >
             {workingCards.length}
@@ -175,16 +175,13 @@ export default function CardFlipper(props: CardFlipperProps) {
           labelText="Categories"
         />
       </div>
-      <div class="flex items-center justify-center flex-col min-w-[80vw] sm:min-w-[33vw]">
+      <div class="flex items-center justify-center flex-col min-w-[80vw] sm:min-w-[33vw] min-h-[50%]">
         <Card
           card={currentCard ??
             {
-              _id: "",
               sourceLangText: "",
               targetLangText: "",
               targetLangTranscription: "",
-              category: "",
-              authorEmail: "",
             }}
           flipVisibility={flipVisibility}
         />
@@ -197,20 +194,25 @@ export default function CardFlipper(props: CardFlipperProps) {
         <a
           id="nextButton"
           onClick={() => serveNewCard()}
-          class="p-3 m-5 h-12
-          flex items-center
+          class="h-12 w-12 mx-3
+          flex justify-center items-center
           cursor-pointer
           bg-white bg-opacity-20
           rounded-2xl shadow
           hover:(shadow-2xl bg-opacity-50)
           active:(bg-opacity-80)
-          transition-all duration-300 align-middle"
+          transition-all duration-300"
         >
-          <RepeatIcon />(
-          <kbd class="kbd opacity-50">
-            space
-          </kbd>)
+          <RepeatIcon />
         </a>
+      </div>
+      <div class="text-gray-200 text-opacity-20 text-xs font-light font-mono justify-around items-center min-w-[40vw] hidden sm:flex">
+        <div>
+          <kbd class="kbd">shift</kbd> flip card
+        </div>
+        <div>
+          <kbd class="kbd">space</kbd> next
+        </div>
       </div>
     </div>
   );
