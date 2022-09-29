@@ -71,12 +71,19 @@ export default function MultiSelect(props: MultiSelectProps) {
         type="checkbox"
       />
       <label
-        class={`text-${labelColour} text-opacity-${labelOpacity}
-                hover:text-opacity-50 
+        class={`text-gray-200 text-opacity-${labelOpacity}
+                group hover:(text-opacity-50) 
                 transition-all duration-300`}
         for={`showDropdown-input`}
       >
-        {props.labelText}: {labelAffix}
+        {props.labelText}:{" "}
+        <span
+          class={`text-${labelColour} text-opacity-${labelOpacity}
+          group-hover:text-opacity-50 
+          transition-all duration-300`}
+        >
+          {labelAffix}
+        </span>
       </label>
       <div
         class={`scale-${dropdownContentScale} fixed bg-gray-900 bg-opacity-20 z-10 h-screen w-screen top-0 left-0 flex justify-center content-center`}
