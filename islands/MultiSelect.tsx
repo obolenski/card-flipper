@@ -1,4 +1,4 @@
-import { JSXInternal } from "https://esm.sh/v94/preact@10.11.0/src/jsx.d.ts";
+import { h } from "preact";
 import { useEffect, useState } from "preact/hooks";
 import MultiSelectOption from "./MultiSelectOption.tsx";
 interface MultiSelectProps {
@@ -31,7 +31,7 @@ export default function MultiSelect(props: MultiSelectProps) {
     ? selectedItems.join(", ")
     : `¯\\_(ツ)_/¯`;
 
-  const onToggle = (e: JSXInternal.TargetedEvent<HTMLInputElement, Event>) => {
+  const onToggle = (e: h.JSX.TargetedEvent<HTMLInputElement, Event>) => {
     const target = e.target as HTMLInputElement;
     const selected = target?.checked;
     if (selected) {

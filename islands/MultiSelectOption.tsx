@@ -1,9 +1,9 @@
-import { JSXInternal } from "https://esm.sh/v94/preact@10.11.0/src/jsx.d.ts";
+import { h } from "preact";
 
 interface DropdownOptionProps {
   checked: boolean;
   optionName: string;
-  onInput: JSXInternal.GenericEventHandler<HTMLInputElement>;
+  onInput: h.JSX.GenericEventHandler<HTMLInputElement>;
 }
 
 export default function MultiSelectOption(props: DropdownOptionProps) {

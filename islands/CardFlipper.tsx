@@ -4,10 +4,10 @@ import Card from "./Card.tsx";
 import { hotkeys } from "https://esm.sh/@ekwoka/hotkeys@1.0.1";
 import LikeButtonComponent from "../components/LikeButtonComponent.tsx";
 import { NextIcon } from "../components/Navigation/Icons.tsx";
-import { JSXInternal } from "https://esm.sh/v94/preact@10.11.0/src/jsx.d.ts";
 import Toggle from "./Toggle.tsx";
 import { cardCategories as allCategories } from "../utils/cardCategories.ts";
 import MultiSelect from "./MultiSelect.tsx";
+import { h } from "preact";
 
 interface CardFlipperProps {
   allCards: LanguageCard[];
@@ -108,11 +108,11 @@ export default function CardFlipper(props: CardFlipperProps) {
   );
 
   const onToggleFavOnlyMode = (
-    e: JSXInternal.TargetedEvent<HTMLInputElement, Event>,
+    e: h.JSX.TargetedEvent<HTMLInputElement, Event>,
   ) => setFavOnlyMode((e.target as HTMLInputElement)?.checked);
 
   const onToggleRandomMode = (
-    e: JSXInternal.TargetedEvent<HTMLInputElement, Event>,
+    e: h.JSX.TargetedEvent<HTMLInputElement, Event>,
   ) => setRandomMode((e.target as HTMLInputElement)?.checked);
 
   const onActiveCategoryChange = (categories: string[]) => {

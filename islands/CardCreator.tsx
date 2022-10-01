@@ -3,7 +3,6 @@ import { cardCategories as allCategories } from "../utils/cardCategories.ts";
 import { AppUser } from "../utils/types.ts";
 import { useEffect, useState } from "preact/hooks";
 import { CreateLanguageCardDto } from "../utils/types.ts";
-import { JSXInternal } from "https://esm.sh/v94/preact@10.11.0/src/jsx.d.ts";
 import { Spinner } from "../components/Navigation/Icons.tsx";
 import { h } from "preact";
 interface CardCreatorProps {
@@ -32,7 +31,7 @@ export default function CardCreator(props: CardCreatorProps) {
   };
 
   const onSubmit = async (
-    e: JSXInternal.TargetedEvent<HTMLFormElement>,
+    e: h.JSX.TargetedEvent<HTMLFormElement>,
   ) => {
     e.preventDefault();
     setAwaitingResponse(true);
@@ -48,8 +47,8 @@ export default function CardCreator(props: CardCreatorProps) {
 
   const onInput = (
     e:
-      | JSXInternal.TargetedEvent<HTMLInputElement, Event>
-      | JSXInternal.TargetedEvent<HTMLSelectElement, Event>,
+      | h.JSX.TargetedEvent<HTMLInputElement, Event>
+      | h.JSX.TargetedEvent<HTMLSelectElement, Event>,
   ) => {
     const target = e.target as HTMLInputElement | HTMLSelectElement;
     setCard({
@@ -143,7 +142,7 @@ const Input = (
     name: string;
     label: string;
     value: string;
-    onInput: JSXInternal.GenericEventHandler<HTMLInputElement>;
+    onInput: h.JSX.GenericEventHandler<HTMLInputElement>;
   },
 ) => {
   return (
@@ -173,7 +172,7 @@ const Select = (
     name: string;
     label: string;
     options: string[];
-    onInput: JSXInternal.GenericEventHandler<HTMLSelectElement>;
+    onInput: h.JSX.GenericEventHandler<HTMLSelectElement>;
   },
 ) => {
   return (

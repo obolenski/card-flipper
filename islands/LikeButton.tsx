@@ -1,4 +1,4 @@
-import { useEffect, useState } from "preact/hooks";
+import { useState } from "preact/hooks";
 import LikeButtonComponent from "../components/LikeButtonComponent.tsx";
 
 interface LikeButtonProps {

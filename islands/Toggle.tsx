@@ -1,10 +1,9 @@
 import { h } from "preact";
-import { JSXInternal } from "https://esm.sh/v94/preact@10.11.0/src/jsx.d.ts";
 
 interface ToggleProps {
   id: string;
   checked: boolean;
-  onInput: JSXInternal.GenericEventHandler<HTMLInputElement>;
+  onInput: h.JSX.GenericEventHandler<HTMLInputElement>;
   children: string | h.JSX.Element;
 }
 
