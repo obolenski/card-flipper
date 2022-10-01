@@ -1,5 +1,5 @@
 import { h } from "preact";
-import { useEffect, useState } from "preact/hooks";
+import { useEffect, useRef, useState } from "preact/hooks";
 import { hotkeys } from "https://esm.sh/@ekwoka/hotkeys@1.0.1";
 import { AppUser, LanguageCard, UserFavs } from "../utils/types.ts";
 import { cardCategories as allCategories } from "../utils/cardCategories.ts";
@@ -15,13 +15,8 @@ interface CardFlipperProps {
   user?: AppUser;
 }
 export default function CardFlipper(props: CardFlipperProps) {
-  const getRandomCard = () => {
-    const randomIndex = Math.floor(Math.random() * workingCards.length);
-    return workingCards[randomIndex];
-  };
-
   const [workingCards, setWorkingCards] = useState(props.allCards);
-  const [currentCard, setCurrentCard] = useState(getRandomCard());
+  const [currentCard, setCurrentCard] = useState<LanguageCard>();
   const [counter, setCounter] = useState(1);
   const [flipVisibility, setFlipVisibility] = useState(false);
   const [favCards, setFavCards] = useState<string[]>(
@@ -30,6 +25,12 @@ export default function CardFlipper(props: CardFlipperProps) {
   const [favOnlyMode, setFavOnlyMode] = useState(false);
   const [randomMode, setRandomMode] = useState(true);
   const [activeCategories, setActiveCategories] = useState(allCategories);
+  const didMount = useRef(false);
+
+  const getRandomCard = () => {
+    const randomIndex = Math.floor(Math.random() * workingCards.length);
+    return workingCards[randomIndex];
+  };
 
   const getNextCard = () => {
     const currentIndex = workingCards.findIndex((card) =>
@@ -45,6 +46,14 @@ export default function CardFlipper(props: CardFlipperProps) {
   };
 
   useEffect(() => {
+    setCurrentCard(getRandomCard());
+  }, []);
+
+  useEffect(() => {
+    if (!didMount.current) {
+      didMount.current = true;
+      return;
+    }
     let newCards = props.allCards;
     if (favOnlyMode) {
       newCards = newCards.filter((card) => favCards.includes(card._id));
@@ -150,7 +159,7 @@ export default function CardFlipper(props: CardFlipperProps) {
       <div class="flex items-center justify-center text-gray-200 text-opacity-50">
         {props.user && (
           <LikeButton
-            currentId={currentCard._id}
+            currentId={currentCard?._id ?? ""}
             favCards={favCards}
             user={props.user}
             setFavCards={setFavCards}
