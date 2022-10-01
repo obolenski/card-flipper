@@ -1,13 +1,13 @@
-import { useEffect, useState } from "preact/hooks";
-import { AppUser, LanguageCard, UserFavs } from "../utils/types.ts";
-import Card from "./Card.tsx";
-import { hotkeys } from "https://esm.sh/@ekwoka/hotkeys@1.0.1";
-import LikeButtonComponent from "../components/LikeButtonComponent.tsx";
-import { NextIcon } from "../components/Navigation/Icons.tsx";
-import Toggle from "./Toggle.tsx";
-import { cardCategories as allCategories } from "../utils/cardCategories.ts";
-import MultiSelect from "./MultiSelect.tsx";
 import { h } from "preact";
+import { useEffect, useState } from "preact/hooks";
+import { hotkeys } from "https://esm.sh/@ekwoka/hotkeys@1.0.1";
+import { AppUser, LanguageCard, UserFavs } from "../utils/types.ts";
+import { cardCategories as allCategories } from "../utils/cardCategories.ts";
+import Card from "./Card.tsx";
+import Toggle from "./Toggle.tsx";
+import MultiSelect from "./MultiSelect.tsx";
+import LikeButton from "./LikeButton.tsx";
+import { NextIcon } from "../components/Navigation/Icons.tsx";
 
 interface CardFlipperProps {
   allCards: LanguageCard[];
@@ -42,38 +42,6 @@ export default function CardFlipper(props: CardFlipperProps) {
     setCounter((prev) => prev + 1);
     if (randomMode) setCurrentCard(getRandomCard());
     else setCurrentCard(getNextCard);
-  };
-
-  const onLikeButtonClick = () => {
-    if (!currentCard) return;
-    if (!props.user) return;
-
-    const alreadyFav = favCards.includes(currentCard._id);
-
-    if (alreadyFav) {
-      setFavCards(favCards.filter((c) => {
-        return c !== currentCard._id;
-      }));
-    } else {
-      setFavCards([
-        ...new Set([
-          ...favCards,
-          currentCard._id,
-        ]),
-      ]);
-    }
-
-    const method = alreadyFav ? "DELETE" : "POST";
-
-    const data = {
-      email: props.user.email,
-      cardId: currentCard._id,
-    };
-
-    fetch(`/api/fav`, {
-      method: method,
-      body: JSON.stringify(data),
-    });
   };
 
   useEffect(() => {
@@ -181,9 +149,11 @@ export default function CardFlipper(props: CardFlipperProps) {
       </div>
       <div class="flex items-center justify-center text-gray-200 text-opacity-50">
         {props.user && (
-          <LikeButtonComponent
-            onClick={onLikeButtonClick}
-            isActive={favCards.includes(currentCard?._id ?? "")}
+          <LikeButton
+            currentId={currentCard._id}
+            favCards={favCards}
+            user={props.user}
+            setFavCards={setFavCards}
           />
         )}
         <a

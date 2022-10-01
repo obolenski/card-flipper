@@ -3,8 +3,8 @@ import LikeButton from "../islands/LikeButton.tsx";
 
 interface CardTableProps {
   cards: LanguageCard[];
-  user: AppUser;
-  userFavs: UserFavs;
+  user?: AppUser;
+  userFavs?: UserFavs;
 }
 
 export default function AllCardsTable(props: CardTableProps) {
@@ -29,9 +29,9 @@ export default function AllCardsTable(props: CardTableProps) {
       {props.user && (
         <td class="">
           <LikeButton
-            cardId={card._id}
-            activeOnFirstRender={props.userFavs?.cardIds?.includes(card._id)}
-            email={props.user.email}
+            currentId={card._id}
+            favCards={props.userFavs?.cardIds ?? []}
+            user={props.user}
           />
         </td>
       )}
