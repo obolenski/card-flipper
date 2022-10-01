@@ -13,5 +13,13 @@ export default {
     'glow-yellow': css`
       box-shadow: 0 0 8px 1px rgba(253, 230, 138, 0.5);
     `,
+    'btn-sqr': `h-12 w-12 mx-3
+    flex justify-center items-center
+    cursor-pointer
+    bg-gray-200 bg-opacity-20
+    rounded-2xl shadow
+    hover:(shadow-2xl bg-opacity-50)
+    active:(bg-opacity-80)
+    transition-all duration-300`,
   },
 } as Options

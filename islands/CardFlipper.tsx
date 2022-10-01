@@ -200,14 +200,7 @@ export default function CardFlipper(props: CardFlipperProps) {
         <a
           id="nextButton"
           onClick={() => serveNewCard()}
-          class="h-12 w-12 mx-3
-          flex justify-center items-center
-          cursor-pointer
-          bg-white bg-opacity-20
-          rounded-2xl shadow
-          hover:(shadow-2xl bg-opacity-50)
-          active:(bg-opacity-80)
-          transition-all duration-300"
+          class="btn-sqr"
         >
           <NextIcon />
         </a>
