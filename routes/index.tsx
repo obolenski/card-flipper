@@ -52,7 +52,13 @@ export default function MainPage(
         googleLoginUrl={googleLoginUrl}
         path={props.url.pathname}
       />
-      <CardFlipper allCards={cards} userFavs={userFavs} user={user} />
+      <CardFlipper
+        allCards={cards.sort((a, b) =>
+          a.sourceLangText.localeCompare(b.sourceLangText)
+        )}
+        userFavs={userFavs}
+        user={user}
+      />
     </Main>
   );
 }

@@ -15,12 +15,13 @@ interface CardFlipperProps {
   user?: AppUser;
 }
 export default function CardFlipper(props: CardFlipperProps) {
-  const allCardsSorted = props.allCards.sort((a, b) =>
-    a.sourceLangText.localeCompare(b.sourceLangText)
-  );
+  const getRandomCard = () => {
+    const randomIndex = Math.floor(Math.random() * workingCards.length);
+    return workingCards[randomIndex];
+  };
 
-  const [workingCards, setWorkingCards] = useState(allCardsSorted);
-  const [currentCard, setCurrentCard] = useState<LanguageCard>();
+  const [workingCards, setWorkingCards] = useState(props.allCards);
+  const [currentCard, setCurrentCard] = useState(getRandomCard());
   const [counter, setCounter] = useState(1);
   const [flipVisibility, setFlipVisibility] = useState(false);
   const [favCards, setFavCards] = useState<string[]>(
@@ -29,11 +30,6 @@ export default function CardFlipper(props: CardFlipperProps) {
   const [favOnlyMode, setFavOnlyMode] = useState(false);
   const [randomMode, setRandomMode] = useState(true);
   const [activeCategories, setActiveCategories] = useState(allCategories);
-
-  const getRandomCard = () => {
-    const randomIndex = Math.floor(Math.random() * workingCards.length);
-    return workingCards[randomIndex];
-  };
 
   const getNextCard = () => {
     const currentIndex = workingCards.findIndex((card) =>
@@ -80,23 +76,16 @@ export default function CardFlipper(props: CardFlipperProps) {
     });
   };
 
-  useEffect(
-    () => {
-      setCurrentCard(getRandomCard());
-    },
-    [],
-  );
-
   useEffect(() => {
+    let newCards = props.allCards;
     if (favOnlyMode) {
-      const favs = allCardsSorted.filter((card) =>
-        activeCategories.includes(card.category)
-      ).filter((card) => favCards.includes(card._id));
-      setWorkingCards(favs);
-    } else {setWorkingCards(allCardsSorted.filter((card) =>
-        activeCategories.includes(card.category)
-      ));}
-  }, [favOnlyMode, activeCategories]);
+      newCards = newCards.filter((card) => favCards.includes(card._id));
+    }
+    newCards = newCards.filter((card) =>
+      activeCategories.includes(card.category)
+    );
+    setWorkingCards(newCards);
+  }, [favOnlyMode, activeCategories, favCards]);
 
   useEffect(
     () => {
