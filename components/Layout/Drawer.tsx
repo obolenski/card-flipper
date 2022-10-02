@@ -1,7 +1,12 @@
 import { h } from "preact/src/index";
-import { CircleIcon, MenuIcon, OutlinedHeart, PlusIcon } from "./Icons.tsx";
+import {
+  CardIcon,
+  CircleIcon,
+  MenuIcon,
+  OutlinedHeart,
+  PlusIcon,
+} from "../Icons.tsx";
 import NavLink from "./NavLink.tsx";
-import { CardIcon } from "./Icons.tsx";
 
 export const Drawer = (
   props: { path: string; authorized: boolean },

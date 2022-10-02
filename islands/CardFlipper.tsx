@@ -3,11 +3,11 @@ import { useEffect, useRef, useState } from "preact/hooks";
 import { hotkeys } from "https://esm.sh/@ekwoka/hotkeys@1.0.1";
 import { AppUser, LanguageCard, UserFavs } from "../utils/types.ts";
 import { cardCategories as allCategories } from "../utils/cardCategories.ts";
-import Card from "./Card.tsx";
-import Toggle from "./Toggle.tsx";
-import MultiSelect from "./MultiSelect.tsx";
+import Card from "../components/Card.tsx";
+import Toggle from "../components/Toggle.tsx";
+import MultiSelect from "../components/MultiSelect.tsx";
 import LikeButton from "./LikeButton.tsx";
-import { NextIcon } from "../components/Navigation/Icons.tsx";
+import { NextIcon } from "../components/Icons.tsx";
 
 interface CardFlipperProps {
   allCards: LanguageCard[];

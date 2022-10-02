@@ -14,15 +14,11 @@ import * as $7 from "./routes/logout.ts";
 import * as $8 from "./routes/submit.tsx";
 import * as $9 from "./routes/tables/[setOfCards].tsx";
 import * as $10 from "./routes/user.tsx";
-import * as $$0 from "./islands/Card.tsx";
-import * as $$1 from "./islands/CardCreator.tsx";
-import * as $$2 from "./islands/CardFlipper.tsx";
-import * as $$3 from "./islands/CollapsibleNavGroup.tsx";
-import * as $$4 from "./islands/DarkModeToggle.tsx";
-import * as $$5 from "./islands/LikeButton.tsx";
-import * as $$6 from "./islands/MultiSelect.tsx";
-import * as $$7 from "./islands/MultiSelectOption.tsx";
-import * as $$8 from "./islands/Toggle.tsx";
+import * as $$0 from "./islands/CardCreator.tsx";
+import * as $$1 from "./islands/CardFlipper.tsx";
+import * as $$2 from "./islands/CollapsibleNavGroup.tsx";
+import * as $$3 from "./islands/DarkModeToggle.tsx";
+import * as $$4 from "./islands/LikeButton.tsx";
 
 const manifest = {
   routes: {
@@ -39,15 +35,11 @@ const manifest = {
     "./routes/user.tsx": $10,
   },
   islands: {
-    "./islands/Card.tsx": $$0,
-    "./islands/CardCreator.tsx": $$1,
-    "./islands/CardFlipper.tsx": $$2,
-    "./islands/CollapsibleNavGroup.tsx": $$3,
-    "./islands/DarkModeToggle.tsx": $$4,
-    "./islands/LikeButton.tsx": $$5,
-    "./islands/MultiSelect.tsx": $$6,
-    "./islands/MultiSelectOption.tsx": $$7,
-    "./islands/Toggle.tsx": $$8,
+    "./islands/CardCreator.tsx": $$0,
+    "./islands/CardFlipper.tsx": $$1,
+    "./islands/CollapsibleNavGroup.tsx": $$2,
+    "./islands/DarkModeToggle.tsx": $$3,
+    "./islands/LikeButton.tsx": $$4,
   },
   baseUrl: import.meta.url,
   config,

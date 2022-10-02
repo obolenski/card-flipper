@@ -1,9 +1,9 @@
-import Card from "./Card.tsx";
+import Card from "../components/Card.tsx";
 import { cardCategories as allCategories } from "../utils/cardCategories.ts";
 import { AppUser } from "../utils/types.ts";
 import { useEffect, useState } from "preact/hooks";
 import { CreateLanguageCardDto } from "../utils/types.ts";
-import { Spinner } from "../components/Navigation/Icons.tsx";
+import { Spinner } from "../components/Icons.tsx";
 import { h } from "preact";
 interface CardCreatorProps {
   user: AppUser;

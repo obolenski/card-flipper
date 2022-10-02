@@ -1,6 +1,6 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
-import Main from "../components/Navigation/Main.tsx";
-import Header from "../components/Navigation/Header.tsx";
+import Main from "../components/Layout/Main.tsx";
+import Header from "../components/Layout/Header.tsx";
 import { AppUser } from "../utils/types.ts";
 import { getCookies } from "$std/http/cookie.ts";
 

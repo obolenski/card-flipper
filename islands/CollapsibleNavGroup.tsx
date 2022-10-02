@@ -1,5 +1,4 @@
 import { createRef } from "preact";
-import { useEffect, useState } from "preact/hooks";
 interface Link {
   href: string;
   text: string;

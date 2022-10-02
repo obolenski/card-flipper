@@ -1,8 +1,8 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { AppUser, LanguageCard, UserFavs } from "../../utils/types.ts";
 import AllCardsTable from "../../components/AllCardsTable.tsx";
-import Main from "../../components/Navigation/Main.tsx";
-import Header from "../../components/Navigation/Header.tsx";
+import Main from "../../components/Layout/Main.tsx";
+import Header from "../../components/Layout/Header.tsx";
 import * as mongoApi from "../../services/mongoApi.ts";
 import { getCookies } from "$std/http/cookie.ts";
 

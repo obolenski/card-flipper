@@ -1,5 +1,5 @@
 import { useEffect, useState } from "preact/hooks";
-import { DarkIcon, LightIcon } from "../components/Navigation/Icons.tsx";
+import { DarkIcon, LightIcon } from "../components/Icons.tsx";
 export default function DarkModeToggle(props: { dark: boolean }) {
   const [darkMode, setDarkMode] = useState(props.dark);
 

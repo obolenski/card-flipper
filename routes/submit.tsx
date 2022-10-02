@@ -1,7 +1,7 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { AppUser } from "../utils/types.ts";
-import Main from "../components/Navigation/Main.tsx";
-import Header from "../components/Navigation/Header.tsx";
+import Main from "../components/Layout/Main.tsx";
+import Header from "../components/Layout/Header.tsx";
 import CardCreator from "../islands/CardCreator.tsx";
 import { getCookies } from "$std/http/cookie.ts";
 

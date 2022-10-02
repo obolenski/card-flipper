@@ -2,7 +2,7 @@ import DarkModeToggle from "../../islands/DarkModeToggle.tsx";
 import { AppUser } from "../../utils/types.ts";
 import { Drawer } from "./Drawer.tsx";
 import { IconButtonWithTooltip } from "./IconButtonWithTooltip.tsx";
-import { LoginIcon, LogoutIcon } from "./Icons.tsx";
+import { LoginIcon, LogoutIcon } from "../Icons.tsx";
 
 interface HeaderProps {
   user?: AppUser;

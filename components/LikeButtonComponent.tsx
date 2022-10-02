@@ -1,5 +1,5 @@
 import { h } from "preact/src/index";
-import { FilledHeart, OutlinedHeart } from "./Navigation/Icons.tsx";
+import { FilledHeart, OutlinedHeart } from "./Icons.tsx";
 
 interface LikeButtonProps {
   onClick: h.JSX.MouseEventHandler<HTMLDivElement>;

@@ -1,4 +1,4 @@
-import Main from "../components/Navigation/Main.tsx";
+import Main from "../components/Layout/Main.tsx";
 import { UnknownPageProps } from "$fresh/server.ts";
 
 export default function NotFoundPage({ url }: UnknownPageProps) {
