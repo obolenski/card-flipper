@@ -45,9 +45,19 @@ export default function CardFlipper(props: CardFlipperProps) {
     else setCurrentCard(getNextCard);
   };
 
-  useEffect(() => {
-    setCurrentCard(getRandomCard());
-  }, []);
+  useEffect(
+    () => {
+      setCurrentCard(getRandomCard());
+      const unregister = hotkeys({
+        " ": () => {
+          serveNewCard();
+        },
+        "shift": () => setFlipVisibility((prev) => !prev),
+      });
+      return (() => unregister());
+    },
+    [],
+  );
 
   useEffect(() => {
     if (!didMount.current) {
@@ -64,26 +74,6 @@ export default function CardFlipper(props: CardFlipperProps) {
     setWorkingCards(newCards);
   }, [favOnlyMode, activeCategories, favCards]);
 
-  useEffect(
-    () => {
-      const unregister = hotkeys({
-        " ": () => {
-          const nextBtn = document.getElementById("nextButton");
-          nextBtn?.classList.remove("bg-opacity-20");
-          nextBtn?.classList.add("bg-opacity-80");
-          nextBtn?.click();
-          setTimeout(() => {
-            nextBtn?.classList.remove("bg-opacity-80");
-            nextBtn?.classList.add("bg-opacity-20");
-          }, 200);
-        },
-        "shift": () => setFlipVisibility((prev) => !prev),
-      });
-      return (() => unregister());
-    },
-    [],
-  );
-
   const onToggleFavOnlyMode = (
     e: h.JSX.TargetedEvent<HTMLInputElement, Event>,
   ) => setFavOnlyMode((e.target as HTMLInputElement)?.checked);
@@ -99,12 +89,14 @@ export default function CardFlipper(props: CardFlipperProps) {
   return (
     <div class="h-full w-full
       flex items-center justify-around flex-col">
-      <div class="hidden text-opacity-5"></div>
-      <div class="text-gray-200 text-opacity-20 text-xs font-light font-mono flex flex-wrap justify-around items-center min-w-[40vw] transition-all duration-300">
+      <div class="dark:(text-gray-200 text-opacity-20) text-gray-900 text-opacity-40 text-xs font-light font-mono flex flex-wrap justify-around items-center min-w-[40vw] transition-all duration-300">
         <div class="mx-5">
           counter:{" "}
-          <span class="text-yellow-200 text-opacity-80">{counter}</span> (<a
-            class="cursor-pointer text-gray-200 text-opacity-20 active:text-opacity-60 hover:text-opacity-40 transition-all duration-300"
+          <span class="dark:(text-yellow-200 text-opacity-80) text-yellow-500 text-opacity-80">
+            {counter}
+          </span>{" "}
+          (<a
+            class="cursor-pointer dark:(text-gray-200 text-opacity-20) text-gray-900 text-opacity-40 active:text-opacity-60 hover:(text-opacity-40 dark:text-opacity-40) transition-all duration-300"
             onClick={() => setCounter(1)}
           >
             reset
@@ -113,9 +105,11 @@ export default function CardFlipper(props: CardFlipperProps) {
         <div class="mx-5">
           Cards in current pool:{" "}
           <span
-            class={`text-${
-              workingCards.length == 0 ? "red-500 animate-pulse" : "yellow-200"
-            } text-opacity-80`}
+            class={`${
+              workingCards.length == 0
+                ? "text-red-500 animate-pulse"
+                : "dark:(text-yellow-200 text-opacity-80) text-yellow-500 text-opacity-80"
+            }`}
           >
             {workingCards.length} / {props.allCards.length}
           </span>
@@ -173,7 +167,7 @@ export default function CardFlipper(props: CardFlipperProps) {
           <NextIcon />
         </a>
       </div>
-      <div class="text-gray-200 text-opacity-20 text-xs font-light font-mono justify-around items-center min-w-[40vw] hidden sm:flex">
+      <div class="dark:(text-gray-200 text-opacity-20) text-gray-900 text-opacity-40 text-xs font-light font-mono justify-around items-center min-w-[40vw] hidden sm:flex">
         <div>
           <kbd class="kbd">shift</kbd> flip card
         </div>

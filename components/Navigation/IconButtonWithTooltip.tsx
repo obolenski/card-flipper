@@ -13,15 +13,15 @@ export const IconButtonWithTooltip = (
          flex items-center flex-col">
     <a
       class="rounded-2xl my-auto p-2 mx-3
-        hover:bg-white hover:bg-opacity-10
-        active:bg-white active:bg-opacity-20
-        transition-all duration-300"
+      hover:(text-gray-900 text-opacity-70 dark:(text-gray-200 text-opacity-70))
+      active:(text-gray-900 text-opacity-80 dark:(text-gray-200 text-opacity-80))
+      transition-all duration-300"
       href={props.href}
     >
       {props.icon}
     </a>
 
-    <div class=" absolute z-[60] p-1 top-12
+    <div class="absolute z-[60] p-1 top-12
             rounded shadow bg(gray-200 opacity-20)
             text-xs text-center font-bold 
             hidden

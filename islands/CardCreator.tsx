@@ -153,7 +153,7 @@ const Input = (
       <input
         required
         class="appearance-none py-2 px-1 min-w-[15vw]
-          bg-gray-600
+          dark:bg-gray-600 bg-gray-200 
           border(1 gray-200 opacity-20) rounded 
           focus:(glow-yellow border(1 yellow-200 opacity-20))
           transition-all duration-300"
@@ -181,7 +181,7 @@ const Select = (
       <select
         required
         class="appearance-auto py-2 px-1 min-w-[15vw]
-          bg-gray-600 
+          dark:bg-gray-600 bg-gray-200 
           border(1 gray-200 opacity-20) rounded 
           focus:(glow-yellow border(1 yellow-200 opacity-20))
           transition-all duration-300"

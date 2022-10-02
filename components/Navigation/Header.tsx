@@ -1,3 +1,4 @@
+import DarkModeToggle from "../../islands/DarkModeToggle.tsx";
 import { AppUser } from "../../utils/types.ts";
 import { Drawer } from "./Drawer.tsx";
 import { IconButtonWithTooltip } from "./IconButtonWithTooltip.tsx";
@@ -7,11 +8,12 @@ interface HeaderProps {
   user?: AppUser;
   googleLoginUrl: string;
   path: string;
+  dark: boolean;
 }
 
 export default function Header(props: HeaderProps) {
   return (
-    <div class="bg-gray-800
+    <div class="bg-gray-300 dark:bg-gray-800 transition-all duration-300
       w-full flex justify-center content-center
       sticky top-0 z-40">
       <div class="flex-1 flex-grow-1
@@ -32,6 +34,7 @@ export default function Header(props: HeaderProps) {
       </div>
       <div class="flex-1 
            flex justify-end content-center text-sm">
+        <DarkModeToggle dark={props.dark} />
         {props.user && (
           <IconButtonWithTooltip
             href="/user"

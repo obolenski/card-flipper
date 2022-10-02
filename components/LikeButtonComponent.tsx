@@ -14,7 +14,7 @@ export default function LikeButtonComponent(props: LikeButtonProps) {
     >
       {props.isActive
         ? (
-          <span class="text-red-500">
+          <span class="text-red-500 text-opacity-80">
             <FilledHeart />
           </span>
         )

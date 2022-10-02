@@ -9,7 +9,7 @@ export default function Card(props: CardProps) {
   return (
     <div class="cursor-pointer h-full w-full relative ease-in group z-0">
       <div class="h-full w-full min-w-max absolute 
-        bg-white bg-opacity-10 font-serif font-bold
+        bg-gray-200 dark:(bg-gray-200 bg-opacity-20) font-serif font-bold
         rounded-xl shadow-xl
         group-hover:shadow-2xl transition-all duration-300">
         <div

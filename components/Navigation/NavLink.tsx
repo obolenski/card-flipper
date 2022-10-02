@@ -9,7 +9,7 @@ interface NavLinkProps {
 
 export default function NavLink(props: NavLinkProps) {
   const routeMatchedClass = props.href == props.path
-    ? "text-yellow-200 text-opacity-80"
+    ? "dark:(text-yellow-200 text-opacity-80) text-yellow-500"
     : "";
   return (
     <a

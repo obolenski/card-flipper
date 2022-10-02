@@ -17,12 +17,12 @@ export const Drawer = (
             overflow-auto
             h-screen min-w-[20vw]
             flex flex-col
-            shadow-2xl bg-gray-900
+            shadow-2xl dark:bg-gray-900 bg-gray-200
             font-mono whitespace-nowrap 
             transition-all duration-300
             group-hover:(left-0) group-focus:(left-0)">
       <div class="p-2 border(b-1 gray-200 opacity-20) text-center">
-        <h1 class="text-2xl font-bold text-gray-50 text-opacity-80">
+        <h1 class="text-2xl font-bold">
           MENU
         </h1>
       </div>

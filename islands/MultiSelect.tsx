@@ -18,12 +18,14 @@ export default function MultiSelect(props: MultiSelectProps) {
   const anyCategoriesSelected = selectedItems.length > 0;
 
   const dropdownContentScale = dropdownOpen ? "100" : "0";
-  const labelOpacity = allCategoriesSelected ? "20" : "80";
+  const labelOpacity = allCategoriesSelected
+    ? "text-opacity-40 dark:text-opacity-20"
+    : "text-opacity-80 dark:text-opacity-80";
   const labelColour = allCategoriesSelected
-    ? "gray-200"
+    ? "dark:text-gray-200 text-gray-900"
     : anyCategoriesSelected
-    ? "yellow-200"
-    : "red-500";
+    ? "dark:text-yellow-200 text-yellow-500"
+    : "text-red-500";
 
   const labelAffix = allCategoriesSelected
     ? "all"
@@ -71,22 +73,22 @@ export default function MultiSelect(props: MultiSelectProps) {
         type="checkbox"
       />
       <label
-        class={`text-gray-200 text-opacity-${labelOpacity}
-                group hover:(text-opacity-50) 
+        class={`dark:text-gray-200 text-gray-900 ${labelOpacity}
+                group hover:(text-opacity-50 dark:text-opacity-50) 
                 transition-all duration-300`}
         for={`showDropdown-input`}
       >
         {props.labelText}:{" "}
         <span
-          class={`text-${labelColour} text-opacity-${labelOpacity}
-          group-hover:text-opacity-50 
+          class={`${labelColour} ${labelOpacity}
+          group-hover:(text-opacity-50 dark:text-opacity-50)
           transition-all duration-300`}
         >
           {labelAffix}
         </span>
       </label>
       <div
-        class={`scale-${dropdownContentScale} fixed bg-gray-900 bg-opacity-20 z-10 h-screen w-screen top-0 left-0 flex justify-center content-center`}
+        class={`scale-${dropdownContentScale} fixed bg-gray-900 bg-opacity-[0.001] z-10 h-screen w-screen top-0 left-0 flex justify-center content-center`}
         onClick={() => setDropdownOpen(false)}
       >
         <div

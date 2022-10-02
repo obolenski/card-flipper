@@ -3,7 +3,7 @@ import { UnknownPageProps } from "$fresh/server.ts";
 
 export default function NotFoundPage({ url }: UnknownPageProps) {
   return (
-    <Main>
+    <Main dark={true}>
       <div class="w-full flex flex-col items-center justify-center flex-grow-1">
         <div class="h-[50%] w-[50%] 
           flex flex-col items-center justify-around

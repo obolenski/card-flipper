@@ -4,22 +4,26 @@ import Main from "../components/Navigation/Main.tsx";
 import Header from "../components/Navigation/Header.tsx";
 import CardFlipper from "../islands/CardFlipper.tsx";
 import * as mongoApi from "../services/mongoApi.ts";
+import { getCookies } from "$std/http/cookie.ts";
 
 export const handler: Handlers<{
   cards: LanguageCard[];
   user?: AppUser;
   userFavs?: UserFavs;
   googleLoginUrl: string;
+  dark: boolean;
 }> = {
   async GET(req, ctx) {
     const user = ctx.state.user as AppUser;
     const googleLoginUrl = ctx.state.googleLoginUrl as string;
+    const dark = getCookies(req.headers)["darkmode"] == "true";
 
     if (!user) {
       const cards = await mongoApi.getAllCards();
       return ctx.render({
         cards: cards,
         googleLoginUrl: googleLoginUrl,
+        dark: dark,
       });
     }
 
@@ -32,6 +36,7 @@ export const handler: Handlers<{
       user: user,
       userFavs: userFavs,
       googleLoginUrl: googleLoginUrl,
+      dark: dark,
     });
   },
 };
@@ -42,15 +47,17 @@ export default function MainPage(
     user?: AppUser;
     userFavs?: UserFavs;
     googleLoginUrl: string;
+    dark: boolean;
   }>,
 ) {
-  const { cards, user, googleLoginUrl, userFavs } = props.data;
+  const { cards, user, googleLoginUrl, userFavs, dark } = props.data;
   return (
-    <Main>
+    <Main dark={dark}>
       <Header
         user={user}
         googleLoginUrl={googleLoginUrl}
         path={props.url.pathname}
+        dark={dark}
       />
       <CardFlipper
         allCards={cards.sort((a, b) =>
