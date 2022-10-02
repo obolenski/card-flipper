@@ -5,7 +5,8 @@ export default function Main(
 ) {
   return (
     <main
-      class={`w-screen min-h-screen text-gray-200
+      class={`w-screen min-h-screen 
+      text-gray-200 text-opacity-50
       bg-gray-800
       antialiased absolute flex flex-grow-1`}
     >

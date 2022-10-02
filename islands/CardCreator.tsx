@@ -66,7 +66,7 @@ export default function CardCreator(props: CardCreatorProps) {
   }, [responseOk]);
 
   return (
-    <div class="w-full h-full flex justify-around items-center flex-wrap-reverse text-gray-200 text-opacity-50 font-mono text-sm">
+    <div class="w-full h-full flex justify-around items-center flex-wrap-reverse font-mono text-sm">
       <FlashMessage
         visible={responseOk == true}
         success={true}

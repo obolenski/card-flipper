@@ -22,8 +22,8 @@ export const IconButtonWithTooltip = (
     </a>
 
     <div class=" absolute z-[60] p-1 top-12
-            rounded shadow bg(gray-50 opacity-20)
-            text-gray-200 text-xs text-center font-bold 
+            rounded shadow bg(gray-200 opacity-20)
+            text-xs text-center font-bold 
             hidden
             group-hover:(block)">
       {props.tooltip}

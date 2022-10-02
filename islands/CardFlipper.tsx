@@ -156,7 +156,7 @@ export default function CardFlipper(props: CardFlipperProps) {
           flipVisibility={flipVisibility}
         />
       </div>
-      <div class="flex items-center justify-center text-gray-200 text-opacity-50">
+      <div class="flex items-center justify-center">
         {props.user && (
           <LikeButton
             currentId={currentCard?._id ?? ""}

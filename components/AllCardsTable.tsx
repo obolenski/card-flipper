@@ -40,20 +40,19 @@ export default function AllCardsTable(props: CardTableProps) {
   return (
     <div class="w-[50%] h-full flex-grow-1">
       <script src="https://tofsjonas.github.io/sortable/sortable.js"></script>
-      <table class="table-auto w-full
-        text-gray-200 text-opacity-80 font-serif sortable">
+      <table class="table-auto w-full font-serif sortable">
         <thead>
           <tr>
-            <th class="p-3 m-3 text-gray-300 text-opacity-60">
+            <th class="p-3 m-3">
               Original
             </th>
-            <th class="p-3 m-3 text-gray-300 text-opacity-60">
+            <th class="p-3 m-3">
               Translation
             </th>
-            <th class="p-3 m-3 text-gray-300 text-opacity-60">
+            <th class="p-3 m-3">
               Transcription
             </th>
-            <th class="p-3 m-3 text-gray-300 text-opacity-60">
+            <th class="p-3 m-3">
               Category
             </th>
           </tr>

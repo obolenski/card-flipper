@@ -8,8 +8,8 @@ export const Drawer = (
 ): h.JSX.Element => (
   <div class="group" tabIndex={0}>
     <div class="rounded-2xl p-2 cursor-pointer
-        hover:bg-white hover:bg-opacity-10
-        active:bg-white active:bg-opacity-20
+        hover:(bg-gray-200 bg-opacity-10)
+        active:(bg-gray-200 bg-opacity-20)
         transition-all">
       <MenuIcon />
     </div>
@@ -18,7 +18,7 @@ export const Drawer = (
             h-screen min-w-[20vw]
             flex flex-col
             shadow-2xl bg-gray-900
-            text-gray-200 text-opacity-50 font-mono whitespace-nowrap 
+            font-mono whitespace-nowrap 
             transition-all duration-300
             group-hover:(left-0) group-focus:(left-0)">
       <div class="p-2 border(b-1 gray-200 opacity-20) text-center">

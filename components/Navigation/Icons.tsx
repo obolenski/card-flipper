@@ -1,7 +1,7 @@
 export const ShuffleIcon = () => {
   return (
     <svg
-      fill="white"
+      fill="currentColor"
       width="32px"
       height="32px"
       viewBox="0 -4 32 32"
@@ -17,10 +17,9 @@ export const ShuffleIcon = () => {
 export const MenuIcon = () => {
   return (
     <svg
-      fill="white"
       width="32"
       height="32"
-      style="fill: rgba(255, 255, 255, 0.5);transform: ;msFilter:;"
+      fill="currentColor"
       viewBox="0 0 384.97 384.97"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -37,7 +36,8 @@ export const LogoutIcon = () => {
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
-      style="fill: rgba(255, 255, 255, 0.5);transform: scaleX(-1);msFilter:progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1);"
+      fill="currentColor"
+      style="transform: scaleX(-1);msFilter:progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1);"
     >
       <path d="M16 13v-2H7V8l-5 4 5 4v-3z"></path>
       <path d="M20 3h-9c-1.103 0-2 .897-2 2v4h2V5h9v14h-9v-4H9v4c0 1.103.897 2 2 2h9c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2z">
@@ -52,7 +52,7 @@ export const LoginIcon = () => {
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
-      style="fill: rgba(255, 255, 255, 0.5);transform: ;msFilter:;"
+      fill="currentColor"
     >
       <path d="m13 16 5-4-5-4v3H4v2h9z"></path>
       <path d="M20 3h-9c-1.103 0-2 .897-2 2v4h2V5h9v14h-9v-4H9v4c0 1.103.897 2 2 2h9c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2z">

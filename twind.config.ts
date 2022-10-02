@@ -4,6 +4,7 @@ import { css } from 'twind/css'
 
 export default {
   selfURL: import.meta.url,
+  darkMode: 'class',
   theme: { extend: { colors: { gray: colors.trueGray } } },
   plugins: {
     kbd: `border(solid 1 gray-200 opacity-20 b-2) rounded 

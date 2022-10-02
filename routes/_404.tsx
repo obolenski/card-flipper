@@ -7,7 +7,7 @@ export default function NotFoundPage({ url }: UnknownPageProps) {
       <div class="w-full flex flex-col items-center justify-center flex-grow-1">
         <div class="h-[50%] w-[50%] 
           flex flex-col items-center justify-around
-          text-4xl text-gray-50 text-opacity-40 font-serif font-bold">
+          text-4xl font-serif font-bold">
           <p>¯\_(ツ)_/¯</p>
           <small>{url.pathname} page not found</small>
           <a
