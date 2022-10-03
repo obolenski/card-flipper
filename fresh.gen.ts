@@ -7,13 +7,12 @@ import * as $0 from "./routes/_404.tsx";
 import * as $1 from "./routes/_middleware.ts";
 import * as $2 from "./routes/api/dark.ts";
 import * as $3 from "./routes/api/fav.ts";
-import * as $4 from "./routes/api/joke.ts";
-import * as $5 from "./routes/api/submitcard.ts";
-import * as $6 from "./routes/index.tsx";
-import * as $7 from "./routes/logout.ts";
-import * as $8 from "./routes/submit.tsx";
-import * as $9 from "./routes/tables/[setOfCards].tsx";
-import * as $10 from "./routes/user.tsx";
+import * as $4 from "./routes/api/submitcard.ts";
+import * as $5 from "./routes/index.tsx";
+import * as $6 from "./routes/logout.ts";
+import * as $7 from "./routes/submit.tsx";
+import * as $8 from "./routes/tables/[setOfCards].tsx";
+import * as $9 from "./routes/user.tsx";
 import * as $$0 from "./islands/CardCreator.tsx";
 import * as $$1 from "./islands/CardFlipper.tsx";
 import * as $$2 from "./islands/CollapsibleNavGroup.tsx";
@@ -26,13 +25,12 @@ const manifest = {
     "./routes/_middleware.ts": $1,
     "./routes/api/dark.ts": $2,
     "./routes/api/fav.ts": $3,
-    "./routes/api/joke.ts": $4,
-    "./routes/api/submitcard.ts": $5,
-    "./routes/index.tsx": $6,
-    "./routes/logout.ts": $7,
-    "./routes/submit.tsx": $8,
-    "./routes/tables/[setOfCards].tsx": $9,
-    "./routes/user.tsx": $10,
+    "./routes/api/submitcard.ts": $4,
+    "./routes/index.tsx": $5,
+    "./routes/logout.ts": $6,
+    "./routes/submit.tsx": $7,
+    "./routes/tables/[setOfCards].tsx": $8,
+    "./routes/user.tsx": $9,
   },
   islands: {
     "./islands/CardCreator.tsx": $$0,
