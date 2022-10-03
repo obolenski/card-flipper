@@ -1,11 +1,3 @@
-# fresh project
+# Card Flipper
 
-### Usage
-
-Start the project:
-
-```
-deno task start
-```
-
-This will watch the project directory and restart as necessary.
+A language learning website made with Fresh
