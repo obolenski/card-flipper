@@ -80,7 +80,7 @@ function setAllCookies(
     setCookie(response.headers, {
       name: 'cardflipper_refresh_token',
       value: refreshToken,
-      maxAge: 60 * 60 * 24 * 7,
+      maxAge: 60 * 60 * 24 * 7 * 365,
       httpOnly: true,
       path: '/',
       sameSite: 'None',

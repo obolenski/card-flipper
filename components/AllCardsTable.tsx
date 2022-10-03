@@ -14,16 +14,16 @@ export default function AllCardsTable(props: CardTableProps) {
       class="font-bold group
       hover:(bg-white bg-opacity-10 shadow) transition-all duration-300"
     >
-      <td class="p-3 m-3">
+      <td class="sm:(p-3 m-3)">
         {card.sourceLangText}
       </td>
-      <td class="p-3 m-3 text-xl">
+      <td class="sm:(p-3 m-3 text-xl)">
         {card.targetLangText}
       </td>
-      <td class="p-3 m-3">
+      <td class="sm:(p-3 m-3)">
         {card.targetLangTranscription}
       </td>
-      <td class="p-3 m-3">
+      <td class="sm:(p-3 m-3)">
         {card.category}
       </td>
       {props.user && (
@@ -38,23 +38,28 @@ export default function AllCardsTable(props: CardTableProps) {
     </tr>
   ));
   return (
-    <div class="w-[50%] h-full flex-grow-1">
+    <div class="w-full h-full flex justify-center content-center">
       <script src="https://tofsjonas.github.io/sortable/sortable.js"></script>
-      <table class="table-auto w-full font-serif sortable">
+      <table class="font-serif text-xs sm:text-base sortable">
         <thead>
           <tr>
-            <th class="p-3 m-3">
+            <th class="sm:(p-3 m-3)">
               Original
             </th>
-            <th class="p-3 m-3">
+            <th class="sm:(p-3 m-3)">
               Translation
             </th>
-            <th class="p-3 m-3">
+            <th class="sm:(p-3 m-3)">
               Transcription
             </th>
-            <th class="p-3 m-3">
+            <th class="sm:(p-3 m-3)">
               Category
             </th>
+            {props.user && (
+              <th class="sm:(p-3 m-3)">
+                Fav
+              </th>
+            )}
           </tr>
         </thead>
         <tbody>

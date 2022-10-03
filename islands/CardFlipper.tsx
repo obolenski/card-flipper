@@ -80,89 +80,91 @@ export default function CardFlipper(props: CardFlipperProps) {
   };
 
   return (
-    <div class="h-full w-full
+    <div class="w-full h-full">
+      <div class="w-full sm:h-full h-[90%]
       flex items-center justify-around flex-col">
-      <div class="dark:(text-gray-200 text-opacity-20) text-gray-900 text-opacity-40 text-xs font-light font-mono flex flex-wrap justify-around items-center min-w-[40vw] transition-all duration-300">
-        <div class="mx-5">
-          counter:{" "}
-          <span class="dark:(text-yellow-200 text-opacity-80) text-yellow-500 text-opacity-80">
-            {counter}
-          </span>{" "}
-          (<a
-            class="cursor-pointer dark:(text-gray-200 text-opacity-20) text-gray-900 text-opacity-40 active:text-opacity-60 hover:(text-opacity-40 dark:text-opacity-40) transition-all duration-300"
-            onClick={() => counter.value = 1}
-          >
-            reset
-          </a>)
+        <div class="dark:(text-gray-200 text-opacity-20) text-gray-900 text-opacity-40 text-xs font-light font-mono flex flex-wrap justify-around items-center min-w-[40vw] transition-all duration-300">
+          <div class="mx-5">
+            counter:{" "}
+            <span class="dark:(text-yellow-200 text-opacity-80) text-yellow-500 text-opacity-80">
+              {counter}
+            </span>{" "}
+            (<a
+              class="cursor-pointer dark:(text-gray-200 text-opacity-20) text-gray-900 text-opacity-40 active:text-opacity-60 hover:(text-opacity-40 dark:text-opacity-40) transition-all duration-300"
+              onClick={() => counter.value = 1}
+            >
+              reset
+            </a>)
+          </div>
+          <div class="mx-5">
+            Cards in current pool:{" "}
+            <span
+              class={`${
+                workingPoolCount.value == 0
+                  ? "text-red-500 animate-pulse"
+                  : "dark:(text-yellow-200 text-opacity-80) text-yellow-500 text-opacity-80"
+              }`}
+            >
+              {workingPoolCount} / {props.allCards.length}
+            </span>
+          </div>
         </div>
-        <div class="mx-5">
-          Cards in current pool:{" "}
-          <span
-            class={`${
-              workingPoolCount.value == 0
-                ? "text-red-500 animate-pulse"
-                : "dark:(text-yellow-200 text-opacity-80) text-yellow-500 text-opacity-80"
-            }`}
-          >
-            {workingPoolCount} / {props.allCards.length}
-          </span>
-        </div>
-      </div>
-      <div class="flex flex-wrap items-center justify-around min-w-[40vw] font-light font-mono text-sm transition-all">
-        {props.user && (
+        <div class="flex flex-wrap items-center justify-around min-w-[40vw] font-light font-mono text-sm transition-all">
+          {props.user && (
+            <Toggle
+              checked={favOnlyMode.value}
+              onInput={onToggleFavOnlyMode}
+              id="favonly"
+            >
+              Only favs
+            </Toggle>
+          )}
           <Toggle
-            checked={favOnlyMode.value}
-            onInput={onToggleFavOnlyMode}
-            id="favonly"
+            checked={randomMode.value}
+            onInput={onToggleRandomMode}
+            id="randommode"
           >
-            Only favs
+            Random
           </Toggle>
-        )}
-        <Toggle
-          checked={randomMode.value}
-          onInput={onToggleRandomMode}
-          id="randommode"
-        >
-          Random
-        </Toggle>
-        <MultiSelect
-          onSelectionChange={onActiveCategoryChange}
-          options={allCategories}
-          defaultSelectedItems={allCategories}
-          labelText="Categories"
-        />
-      </div>
-      <div class="flex items-center justify-center flex-col min-w-[80vw] sm:min-w-[33vw] min-h-[50%]">
-        <Card
-          card={currentCard.value ?? {}}
-          flipVisibility={flipVisibility.value}
-        />
-      </div>
-      <div class="flex items-center justify-center">
-        {props.user && (
-          <LikeButton
-            currentId={currentCard.value?._id ?? ""}
-            favCards={favCards.value}
-            user={props.user}
-            setFavCards={(newVal: string[]) => {
-              favCards.value = newVal;
-            }}
+          <MultiSelect
+            onSelectionChange={onActiveCategoryChange}
+            options={allCategories}
+            defaultSelectedItems={allCategories}
+            labelText="Categories"
           />
-        )}
-        <a
-          id="nextButton"
-          onClick={() => serveNewCard()}
-          class="btn-sqr"
-        >
-          <NextIcon />
-        </a>
-      </div>
-      <div class="dark:(text-gray-200 text-opacity-20) text-gray-900 text-opacity-40 text-xs font-light font-mono justify-around items-center min-w-[40vw] hidden sm:flex">
-        <div>
-          <kbd class="kbd">shift</kbd> flip card
         </div>
-        <div>
-          <kbd class="kbd">space</kbd> next
+        <div class="flex items-center justify-center flex-col min-w-[80vw] sm:min-w-[33vw] min-h-[50%]">
+          <Card
+            card={currentCard.value ?? {}}
+            flipVisibility={flipVisibility.value}
+          />
+        </div>
+        <div class="flex items-center justify-center">
+          {props.user && (
+            <LikeButton
+              currentId={currentCard.value?._id ?? ""}
+              favCards={favCards.value}
+              user={props.user}
+              setFavCards={(newVal: string[]) => {
+                favCards.value = newVal;
+              }}
+            />
+          )}
+          <a
+            id="nextButton"
+            onClick={() => serveNewCard()}
+            class="btn-sqr"
+          >
+            <NextIcon />
+          </a>
+        </div>
+        <div class="dark:(text-gray-200 text-opacity-20) text-gray-900 text-opacity-40 text-xs font-light font-mono justify-around items-center min-w-[40vw] hidden sm:flex">
+          <div>
+            <kbd class="kbd">shift</kbd> flip card
+          </div>
+          <div>
+            <kbd class="kbd">space</kbd> next
+          </div>
         </div>
       </div>
     </div>

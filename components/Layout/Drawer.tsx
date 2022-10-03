@@ -18,14 +18,14 @@ export const Drawer = (
         transition-all">
       <MenuIcon />
     </div>
-    <div class="fixed top-0 left-[-50vw] z-10
+    <div class="fixed top-0 -translate-x-full z-10
             overflow-auto
-            h-screen min-w-[20vw]
+            h-screen sm:min-w-[20vw] min-w-[80vw]
             flex flex-col
             shadow-2xl dark:bg-gray-900 bg-gray-200
             font-mono whitespace-nowrap 
             transition-all duration-300
-            group-hover:(left-0) group-focus:(left-0)">
+            group-hover:(translate-x-0) group-focus:(translate-x-0)">
       <div class="p-2 border(b-1 gray-200 opacity-20) text-center">
         <h1 class="text-2xl font-bold">
           MENU
