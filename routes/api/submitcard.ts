@@ -5,7 +5,6 @@ import * as axiod from 'https://deno.land/x/axiod@0.20.0-0/mod.ts'
 export const handler: Handlers = {
   async POST(req, _ctx) {
     const card = await req.json()
-    console.log(card)
 
     const data = JSON.stringify({
       collection: 'cards',

@@ -83,6 +83,7 @@ function setAllCookies(
       maxAge: 60 * 60 * 24 * 7,
       httpOnly: true,
       path: '/',
+      sameSite: 'Strict',
     })
   }
   setCookie(response.headers, {
@@ -91,6 +92,7 @@ function setAllCookies(
     maxAge: 60 * 60 * 24 * 7,
     httpOnly: true,
     path: '/',
+    sameSite: 'Strict',
   })
   setUserDataCookies(response, userData)
 }
@@ -102,6 +104,7 @@ function setUserDataCookies(response: Response, userData: AppUser) {
     maxAge: 900,
     httpOnly: true,
     path: '/',
+    sameSite: 'Strict',
   })
   setCookie(response.headers, {
     name: 'cardflipper_user_info_email',
@@ -109,6 +112,7 @@ function setUserDataCookies(response: Response, userData: AppUser) {
     maxAge: 900,
     httpOnly: true,
     path: '/',
+    sameSite: 'Strict',
   })
   setCookie(response.headers, {
     name: 'cardflipper_user_info_name',
@@ -116,6 +120,7 @@ function setUserDataCookies(response: Response, userData: AppUser) {
     httpOnly: true,
     maxAge: 900,
     path: '/',
+    sameSite: 'Strict',
   })
 }
 

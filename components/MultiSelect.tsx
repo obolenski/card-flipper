@@ -44,7 +44,6 @@ export default function MultiSelect(props: MultiSelectProps) {
         ]),
       ]);
     } else {
-      console.log("removing: " + target.name);
       setSelectedItems(selectedItems.filter((item) => item !== target.name));
     }
   };
@@ -58,7 +57,6 @@ export default function MultiSelect(props: MultiSelectProps) {
   };
 
   useEffect(() => {
-    console.log("categories change in child! new: " + selectedItems);
     props.onSelectionChange(selectedItems);
   }, [selectedItems]);
 

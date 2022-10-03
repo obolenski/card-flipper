@@ -12,6 +12,8 @@ export const handler: Handlers = {
       maxAge: 60 * 60 * 24 * 7,
       httpOnly: true,
       path: '/',
+      sameSite: 'None',
+      secure: true,
     })
     return response
   },
