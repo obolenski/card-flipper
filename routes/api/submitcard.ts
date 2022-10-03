@@ -1,4 +1,4 @@
-import { Handlers } from 'https://deno.land/x/fresh@1.0.2/server.ts'
+import { Handlers } from '$fresh/server.ts'
 import { MongoAPIBaseUrl, MongoApiKey } from '../../utils/env.ts'
 import * as axiod from 'https://deno.land/x/axiod@0.20.0-0/mod.ts'
 

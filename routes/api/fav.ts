@@ -1,4 +1,4 @@
-import { Handlers } from 'https://deno.land/x/fresh@1.0.2/server.ts'
+import { Handlers } from '$fresh/server.ts'
 import * as mongoApi from '../../services/mongoApi.ts'
 
 export const handler: Handlers = {
