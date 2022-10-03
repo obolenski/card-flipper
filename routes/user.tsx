@@ -3,6 +3,7 @@ import Main from "../components/Layout/Main.tsx";
 import Header from "../components/Layout/Header.tsx";
 import { AppUser } from "../utils/types.ts";
 import { getCookies } from "$std/http/cookie.ts";
+import { Head } from "$fresh/src/runtime/head.ts";
 
 export const handler: Handlers<{
   user: AppUser;
@@ -34,6 +35,9 @@ export default function User(
   const { user, googleLoginUrl, dark } = props.data;
   return (
     <Main dark={dark}>
+      <Head>
+        <title>User | CARD FLIPPER</title>
+      </Head>
       <Header
         user={user}
         googleLoginUrl={googleLoginUrl}

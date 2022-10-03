@@ -1,9 +1,13 @@
 import Main from "../components/Layout/Main.tsx";
 import { UnknownPageProps } from "$fresh/server.ts";
+import { Head } from "$fresh/src/runtime/head.ts";
 
 export default function NotFoundPage({ url }: UnknownPageProps) {
   return (
     <Main dark={true}>
+      <Head>
+        <title>NOT FOUND | CARD FLIPPER</title>
+      </Head>
       <div class="w-full flex flex-col items-center justify-center flex-grow-1">
         <div class="h-[50%] w-[50%] 
           flex flex-col items-center justify-around

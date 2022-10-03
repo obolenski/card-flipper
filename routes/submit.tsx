@@ -4,6 +4,7 @@ import Main from "../components/Layout/Main.tsx";
 import Header from "../components/Layout/Header.tsx";
 import CardCreator from "../islands/CardCreator.tsx";
 import { getCookies } from "$std/http/cookie.ts";
+import { Head } from "$fresh/src/runtime/head.ts";
 
 export const handler: Handlers<{
   user: AppUser;
@@ -35,6 +36,9 @@ export default function Submit(
   const { user, googleLoginUrl, dark } = props.data;
   return (
     <Main dark={dark}>
+      <Head>
+        <title>Create cards | CARD FLIPPER</title>
+      </Head>
       <Header
         user={user}
         googleLoginUrl={googleLoginUrl}
