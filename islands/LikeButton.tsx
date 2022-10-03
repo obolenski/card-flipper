@@ -6,7 +6,7 @@ interface LikeButtonProps {
   currentId: string;
   user: AppUser;
   favCards: string[];
-  setFavCards?: StateUpdater<string[]>;
+  setFavCards?: (a: string[]) => void;
 }
 export default function LikeButton(
   props: LikeButtonProps,
