@@ -83,7 +83,8 @@ function setAllCookies(
       maxAge: 60 * 60 * 24 * 7,
       httpOnly: true,
       path: '/',
-      sameSite: 'Strict',
+      sameSite: 'None',
+      secure: true,
     })
   }
   setCookie(response.headers, {
@@ -92,7 +93,8 @@ function setAllCookies(
     maxAge: 60 * 60 * 24 * 7,
     httpOnly: true,
     path: '/',
-    sameSite: 'Strict',
+    sameSite: 'None',
+    secure: true,
   })
   setUserDataCookies(response, userData)
 }
