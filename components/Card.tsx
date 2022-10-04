@@ -1,40 +1,63 @@
 import { LanguageCardVM } from "../utils/types.ts";
+import { useEffect } from "preact/hooks";
+import { hotkeys } from "https://esm.sh/v92/@ekwoka/hotkeys@1.0.1/dist/index";
+import { computed, useSignal } from "@preact/signals";
 
 interface CardProps {
   card: LanguageCardVM;
-  flipVisibility: boolean;
 }
 
 export default function Card(props: CardProps) {
+  const flipped = useSignal(false);
+
+  const Front = () => {
+    return (
+      <div class="text-2xl sm:text-6xl">
+        {props.card.sourceLangText}
+      </div>
+    );
+  };
+
+  const Back = () => {
+    return (
+      <>
+        <div class="text-2xl sm:text-6xl">{props.card.targetLangText}</div>
+        <div class="text-xl sm:text-4xl">
+          {props.card.targetLangTranscription}
+        </div>
+      </>
+    );
+  };
+  const flip = () => {
+    flipped.value = !flipped.value;
+  };
+
+  useEffect(
+    () => {
+      const unregister = hotkeys({
+        "shift": () => {
+          flip();
+        },
+      });
+      return (() => unregister());
+    },
+    [],
+  );
+
   return (
-    <div class="cursor-pointer h-full w-full relative ease-in group z-0">
-      <div class="h-full w-full min-w-max absolute 
-        bg-gray-200 dark:(bg-gray-200 bg-opacity-20) font-serif font-bold
-        rounded-xl shadow-xl
-        group-hover:shadow-2xl transition-all duration-300">
-        <div
-          class={props.flipVisibility
-            ? "h-full w-full min-w-max absolute overflow-hidden flex items-center justify-around flex-col opacity-0 group-hover:opacity-100 transition-all"
-            : "h-full w-full absolute overflow-hidden flex items-center justify-around flex-col group-hover:opacity-0 transition-all"}
-        >
-          <div class="text-2xl sm:text-6xl">
-            {props.card.sourceLangText}
-          </div>
-        </div>
-        <div
-          class={props.flipVisibility
-            ? "h-full w-full min-w-max absolute overflow-hidden flex items-center justify-around flex-col group-hover:opacity-0 transition-all"
-            : "h-full w-full absolute overflow-hidden flex items-center justify-around flex-col opacity-0 group-hover:opacity-100 transition-all"}
-        >
-          <div class="text-2xl sm:text-6xl">{props.card.targetLangText}</div>
-          <div class="text-xl sm:text-4xl">
-            {props.card.targetLangTranscription}
-          </div>
-        </div>
-        <div class="absolute bottom-3 block w-full 
+    <div
+      onClick={flip}
+      class="cursor-pointer h-full w-full z-0 relative
+    flex flex-col justify-around items-center
+    bg-gray-200 dark:(bg-gray-200 bg-opacity-20) font-serif font-bold
+    rounded-xl shadow-xl
+    hover:(shadow-2xl bg-gray-100 dark:(bg-gray-200 bg-opacity-30))
+    transition-all duration-300"
+    >
+      {flipped.value ? <Back /> : <Front />}
+      <div class="absolute bottom-3 block w-full 
             text-center opacity-50 text-xs font-light">
-          hover to flip the card
-        </div>
+        click to flip
       </div>
     </div>
   );

@@ -21,7 +21,6 @@ export default function CardFlipper(props: CardFlipperProps) {
   const workingPoolCount = computed(() => workingCards.value.length);
   const currentCard = useSignal<LanguageCard>(emptyCard);
   const counter = useSignal(1);
-  const flipVisibility = useSignal(false);
   const favCards = useSignal<string[]>(props.userFavs?.cardIds || []);
   const favOnlyMode = useSignal(false);
   const randomMode = useSignal(true);
@@ -51,7 +50,6 @@ export default function CardFlipper(props: CardFlipperProps) {
       currentCard.value = getRandomCard();
       const unregister = hotkeys({
         " ": () => serveNewCard(),
-        "shift": () => flipVisibility.value = !flipVisibility.value,
       });
       return (() => unregister());
     },
@@ -134,10 +132,7 @@ export default function CardFlipper(props: CardFlipperProps) {
           />
         </div>
         <div class="flex items-center justify-center flex-col min-w-[80vw] sm:min-w-[33vw] min-h-[50%]">
-          <Card
-            card={currentCard.value ?? {}}
-            flipVisibility={flipVisibility.value}
-          />
+          <Card card={currentCard.value ?? {}} />
         </div>
         <div class="flex items-center justify-center">
           {props.user && (

@@ -128,10 +128,7 @@ export default function CardCreator(props: CardCreatorProps) {
           </span>{" "}
           preview
         </div>
-        <Card
-          flipVisibility={false}
-          card={card}
-        />
+        <Card card={card} />
       </div>
     </div>
   );
