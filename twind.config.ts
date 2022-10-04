@@ -16,13 +16,10 @@ export default {
     'glow-yellow': css`
       box-shadow: 0 0 8px 1px rgba(253, 230, 138, 0.5);
     `,
-    'btn-sqr': `h-12 w-12 mx-3
-    flex justify-center items-center
+    'btn-nobg': `mx-3
     cursor-pointer
-    dark:(bg-gray-200 bg-opacity-20) bg-gray-900 bg-opacity-20
-    rounded-2xl shadow
-    hover:(shadow-2xl dark:(bg-gray-200 bg-opacity-50) bg-gray-900 bg-opacity-50)
-    active:(dark:(bg-gray-200 bg-opacity-80) bg-gray-900 bg-opacity-80)
+    hover:(dark:(text-gray-200 text-opacity-70) text-gray-800 text-opacity-80)
+    active:(dark:(text-gray-200 bg-opacity-80) text-gray-700 text-opacity-80)
     transition-all duration-300`,
   },
 } as Options

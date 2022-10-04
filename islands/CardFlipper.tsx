@@ -148,7 +148,7 @@ export default function CardFlipper(props: CardFlipperProps) {
           <a
             id="nextButton"
             onClick={() => serveNewCard()}
-            class="btn-sqr"
+            class="btn-nobg"
           >
             <NextIcon />
           </a>

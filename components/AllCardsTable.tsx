@@ -14,6 +14,9 @@ export default function AllCardsTable(props: CardTableProps) {
       class="font-bold group
       hover:(bg-white bg-opacity-10 shadow) transition-all duration-300"
     >
+      <td class="sm:(p-3 m-3 max-w-full) max-w-[2rem] truncate">
+        {card.category}
+      </td>
       <td class="sm:(p-3 m-3)">
         {card.sourceLangText}
       </td>
@@ -22,9 +25,6 @@ export default function AllCardsTable(props: CardTableProps) {
       </td>
       <td class="sm:(p-3 m-3)">
         {card.targetLangTranscription}
-      </td>
-      <td class="sm:(p-3 m-3)">
-        {card.category}
       </td>
       {props.user && (
         <td class="">
@@ -41,19 +41,19 @@ export default function AllCardsTable(props: CardTableProps) {
     <div class="w-full h-full flex justify-center content-center">
       <script src="https://tofsjonas.github.io/sortable/sortable.js"></script>
       <table class="font-serif text-xs sm:text-base sortable">
-        <thead>
+        <thead class="text-left">
           <tr>
-            <th class="sm:(p-3 m-3)">
+            <th class="sm:(p-3 m-3 max-w-full) max-w-[3rem] truncate btn-nobg">
+              Category
+            </th>
+            <th class="sm:(p-3 m-3) btn-nobg">
               Original
             </th>
-            <th class="sm:(p-3 m-3)">
+            <th class="sm:(p-3 m-3 btn-nobg">
               Translation
             </th>
-            <th class="sm:(p-3 m-3)">
+            <th class="sm:(p-3 m-3 max-w-full) max-w-[3rem] btn-nobg">
               Transcription
-            </th>
-            <th class="sm:(p-3 m-3)">
-              Category
             </th>
             {props.user && (
               <th class="sm:(p-3 m-3)">

@@ -9,12 +9,12 @@ interface LikeButtonProps {
 export default function LikeButtonComponent(props: LikeButtonProps) {
   return (
     <div
-      class="btn-sqr"
+      class="btn-nobg"
       onClick={props.onClick}
     >
       {props.isActive
         ? (
-          <span class="text-red-500 text-opacity-80">
+          <span class="text-red-500 text-opacity-80 hover:(text-red-500 text-opacity-100) transition-all duration-300">
             <FilledHeart />
           </span>
         )
