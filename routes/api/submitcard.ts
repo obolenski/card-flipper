@@ -29,7 +29,6 @@ export const handler: Handlers = {
     await axiod
       .default(config)
       .then((res) => {
-        console.log(res.data)
         response = new Response(JSON.stringify(res.data))
       })
       .catch(function (error) {

@@ -18,7 +18,6 @@ export default async function authMiddleware(
 
   const storedUserInfo = buildUserFromCookies(req)
   if (storedUserInfo) {
-    console.log('got user data from cookies')
     ctx.state.user = storedUserInfo
     const response = await ctx.next()
     return response
@@ -30,7 +29,6 @@ export default async function authMiddleware(
   const existingAcessToken = getCookies(req.headers)['cardflipper_access_token']
 
   if (existingRefreshToken) {
-    console.log('attempting to get user data from stored refresh token')
     const accessToken = await googleApi.getAccessTokenFromRefreshToken(
       existingRefreshToken,
       redirectUrl
@@ -43,7 +41,6 @@ export default async function authMiddleware(
       return response
     }
   } else if (existingAcessToken) {
-    console.log('attempting to get user data from stored access token')
     const user = await googleApi.getUserData(existingAcessToken)
     if (user) {
       ctx.state.user = user

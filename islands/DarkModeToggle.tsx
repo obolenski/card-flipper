@@ -1,4 +1,4 @@
-import { useEffect, useState } from "preact/hooks";
+import { useEffect, useRef, useState } from "preact/hooks";
 import { DarkIcon, LightIcon } from "../components/Icons.tsx";
 export default function DarkModeToggle(props: { dark: boolean }) {
   const [darkMode, setDarkMode] = useState(props.dark);
@@ -7,7 +7,14 @@ export default function DarkModeToggle(props: { dark: boolean }) {
     setDarkMode(!darkMode);
   };
 
+  const didMount = useRef(false);
+
   useEffect(() => {
+    if (!didMount.current) {
+      didMount.current = true;
+      return;
+    }
+
     fetch(`/api/dark`, {
       method: "POST",
       body: JSON.stringify({ darkMode }),
