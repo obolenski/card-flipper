@@ -63,9 +63,9 @@ export const getUserData = async (
   const userData = await axiod
     .default(config)
     .then((res) => res.data)
-    .catch((e) =>
-      console.log('Error getting user data form Google: ' + JSON.stringify(e))
-    )
+    .catch(() => {
+      console.log('Error getting user data from google by access token')
+    })
 
   if (!userData) return null
 
