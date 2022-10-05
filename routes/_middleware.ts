@@ -100,30 +100,34 @@ function setAllCookies(
 }
 
 function setUserDataCookies(response: Response, userData: AppUser) {
-  setCookie(response.headers, {
-    name: 'cardflipper_user_info_avatarUrl',
-    value: userData.avatarUrl,
-    maxAge: 900,
-    httpOnly: true,
-    path: '/',
-    sameSite: 'Strict',
-  })
-  setCookie(response.headers, {
-    name: 'cardflipper_user_info_email',
-    value: userData.email,
-    maxAge: 900,
-    httpOnly: true,
-    path: '/',
-    sameSite: 'Strict',
-  })
-  setCookie(response.headers, {
-    name: 'cardflipper_user_info_name',
-    value: userData.name.replace(' ', '+'),
-    httpOnly: true,
-    maxAge: 900,
-    path: '/',
-    sameSite: 'Strict',
-  })
+  try {
+    setCookie(response.headers, {
+      name: 'cardflipper_user_info_avatarUrl',
+      value: userData.avatarUrl,
+      maxAge: 900,
+      httpOnly: true,
+      path: '/',
+      sameSite: 'Strict',
+    })
+    setCookie(response.headers, {
+      name: 'cardflipper_user_info_email',
+      value: userData.email,
+      maxAge: 900,
+      httpOnly: true,
+      path: '/',
+      sameSite: 'Strict',
+    })
+    setCookie(response.headers, {
+      name: 'cardflipper_user_info_name',
+      value: userData.name.replace(' ', '+'),
+      httpOnly: true,
+      maxAge: 900,
+      path: '/',
+      sameSite: 'Strict',
+    })
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 function buildUserFromCookies(req: Request) {
