@@ -1,5 +1,6 @@
 import { MiddlewareHandlerContext } from '$fresh/server.ts'
 import { getCookies, setCookie, deleteCookie } from '$std/http/cookie.ts'
+import { create, decode } from 'https://deno.land/x/djwt@v2.7/mod.ts'
 import { AppUser } from '../utils/types.ts'
 import * as googleApi from '../services/googleApi.ts'
 
@@ -16,7 +17,7 @@ export default async function authMiddleware(
   const redirectUrl = req.url.split('?')[0]
   ctx.state.googleLoginUrl = googleApi.getGoogleUrl(redirectUrl)
 
-  const storedUserInfo = buildUserFromCookies(req)
+  const storedUserInfo = buildUserFromCookie(req)
   if (storedUserInfo) {
     ctx.state.user = storedUserInfo
     const response = await ctx.next()
@@ -37,7 +38,7 @@ export default async function authMiddleware(
     if (user) {
       ctx.state.user = user
       const response = await ctx.next()
-      setUserDataCookies(response, user)
+      setJWTCookie(response, user)
       return response
     }
   } else if (existingAcessToken) {
@@ -45,7 +46,7 @@ export default async function authMiddleware(
     if (user) {
       ctx.state.user = user
       const response = await ctx.next()
-      setUserDataCookies(response, user)
+      setJWTCookie(response, user)
       return response
     }
   }
@@ -64,16 +65,13 @@ export default async function authMiddleware(
   if (userData) {
     ctx.state.user = userData
     const response = await ctx.next()
-    setAllCookies(response, refreshToken, accessToken, userData)
+    await setAllCookies(response, refreshToken, accessToken, userData)
     return response
   }
-  const response = await ctx.next()
-  deleteCookie(response.headers, 'cardflipper_refresh_token')
-  deleteCookie(response.headers, 'cardflipper_access_token')
-  return response
+  return await ctx.next()
 }
 
-function setAllCookies(
+async function setAllCookies(
   response: Response,
   refreshToken: string,
   accessToken: string,
@@ -99,32 +97,22 @@ function setAllCookies(
     sameSite: 'None',
     secure: true,
   })
-  setUserDataCookies(response, userData)
+  await setJWTCookie(response, userData)
 }
 
-function setUserDataCookies(response: Response, userData: AppUser) {
+async function setJWTCookie(response: Response, userData: AppUser) {
+  const key = await crypto.subtle.generateKey(
+    { name: 'HMAC', hash: 'SHA-512' },
+    true,
+    ['sign', 'verify']
+  )
   try {
+    const jwt = await create({ alg: 'HS512', typ: 'JWT' }, userData, key)
     setCookie(response.headers, {
-      name: 'cardflipper_user_info_avatarUrl',
-      value: userData.avatarUrl,
+      name: 'cardflipper_user_token',
+      value: jwt,
       maxAge: 900,
       httpOnly: true,
-      path: '/',
-      sameSite: 'Strict',
-    })
-    setCookie(response.headers, {
-      name: 'cardflipper_user_info_email',
-      value: userData.email,
-      maxAge: 900,
-      httpOnly: true,
-      path: '/',
-      sameSite: 'Strict',
-    })
-    setCookie(response.headers, {
-      name: 'cardflipper_user_info_name',
-      value: userData.name.replace(' ', '+'),
-      httpOnly: true,
-      maxAge: 900,
       path: '/',
       sameSite: 'Strict',
     })
@@ -133,17 +121,26 @@ function setUserDataCookies(response: Response, userData: AppUser) {
   }
 }
 
-function buildUserFromCookies(req: Request) {
-  const avatarUrl = getCookies(req.headers)['cardflipper_user_info_avatarUrl']
-  const email = getCookies(req.headers)['cardflipper_user_info_email']
-  const name = getCookies(req.headers)['cardflipper_user_info_name']
-  if (avatarUrl && email && name) {
-    const user: AppUser = {
-      name: name.replace('+', ' '),
-      email: email,
-      avatarUrl: avatarUrl,
+function buildUserFromCookie(req: Request) {
+  const jwt = getCookies(req.headers)['cardflipper_user_token']
+  if (!jwt) return undefined
+  try {
+    const [_header, payload, _signature] = decode(jwt)
+    const usr = payload as AppUser
+    const avatarUrl = usr.avatarUrl
+    const email = usr.email
+    const name = usr.name
+    if (avatarUrl && email && name) {
+      const user: AppUser = {
+        name: name.replace('+', ' '),
+        email: email,
+        avatarUrl: avatarUrl,
+      }
+      return user
     }
-    return user
+  } catch (e) {
+    console.log(e)
   }
+
   return undefined
 }
