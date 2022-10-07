@@ -1,12 +1,14 @@
 import { h } from "preact/src/index";
 import {
   CardIcon,
+  CategoryIconFilled,
   CircleIcon,
   MenuIcon,
   OutlinedHeart,
   PlusIcon,
 } from "../Icons.tsx";
 import NavLink from "./NavLink.tsx";
+import CategoriesCollapsible from "../../islands/CategoriesCollapsible.tsx";
 
 export const Drawer = (
   props: { path: string; authorized: boolean },
@@ -62,6 +64,7 @@ export const Drawer = (
             />
           )
           : <></>}
+        <CategoriesCollapsible />
       </NavGroup>
     </div>
   </div>

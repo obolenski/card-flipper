@@ -15,7 +15,7 @@ import * as $8 from "./routes/tables/[setOfCards].tsx";
 import * as $9 from "./routes/user.tsx";
 import * as $$0 from "./islands/CardCreator.tsx";
 import * as $$1 from "./islands/CardFlipper.tsx";
-import * as $$2 from "./islands/CollapsibleNavGroup.tsx";
+import * as $$2 from "./islands/CategoriesCollapsible.tsx";
 import * as $$3 from "./islands/DarkModeToggle.tsx";
 import * as $$4 from "./islands/LikeButton.tsx";
 
@@ -35,7 +35,7 @@ const manifest = {
   islands: {
     "./islands/CardCreator.tsx": $$0,
     "./islands/CardFlipper.tsx": $$1,
-    "./islands/CollapsibleNavGroup.tsx": $$2,
+    "./islands/CategoriesCollapsible.tsx": $$2,
     "./islands/DarkModeToggle.tsx": $$3,
     "./islands/LikeButton.tsx": $$4,
   },

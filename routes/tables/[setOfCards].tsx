@@ -6,6 +6,7 @@ import Header from "../../components/Layout/Header.tsx";
 import * as mongoApi from "../../services/mongoApi.ts";
 import { getCookies } from "$std/http/cookie.ts";
 import { Head } from "$fresh/src/runtime/head.ts";
+import { cardCategories as allCategories } from "../../utils/cardCategories.ts";
 
 export const handler: Handlers<{
   cards: LanguageCard[];
@@ -15,7 +16,7 @@ export const handler: Handlers<{
   dark: boolean;
 }> = {
   async GET(req, ctx) {
-    const allowedPaths = ["all", "fav"];
+    const allowedPaths = ["all", "fav", ...allCategories];
     const lastUrlSegment = req.url.split("?")[0].split("/").pop() ?? "";
 
     if (!allowedPaths.includes(lastUrlSegment)) {
@@ -35,7 +36,9 @@ export const handler: Handlers<{
 
     const cards = lastUrlSegment == "all"
       ? allCards
-      : allCards.filter((card) => userFavs.cardIds.includes(card._id));
+      : lastUrlSegment == "fav"
+      ? allCards.filter((card) => userFavs.cardIds.includes(card._id))
+      : allCards.filter((card) => card.category == lastUrlSegment);
 
     const googleLoginUrl = ctx.state.googleLoginUrl as string;
     const dark = getCookies(req.headers)["darkmode"] == "true";
@@ -59,10 +62,11 @@ export default function TablePage(
   }>,
 ) {
   const { cards, user, googleLoginUrl, userFavs, dark } = props.data;
+  const category = props.url.pathname.split("?")[0].split("/").pop() ?? "";
   return (
     <Main dark={dark}>
       <Head>
-        <title>Browse cards | CARD FLIPPER</title>
+        <title>{category} | CARD FLIPPER</title>
       </Head>
       <Header
         user={user}
@@ -70,6 +74,9 @@ export default function TablePage(
         path={props.url.pathname}
         dark={dark}
       />
+      <div class="font-light font-mono text-sm">
+        Category: {category}
+      </div>
       <AllCardsTable cards={cards} user={user} userFavs={userFavs} />
     </Main>
   );
