@@ -11,7 +11,7 @@ export default function AllCardsTable(props: CardTableProps) {
   const rows = props.cards.map((card) => (
     <tr
       key={card._id}
-      class="font-bold group table-row
+      class="font-bold group
       border(t-1 b-1 gray-200 opacity-20)
       hover:(bg-gray-200 bg-opacity-20 shadow-xl) transition-all duration-300"
     >
@@ -25,7 +25,7 @@ export default function AllCardsTable(props: CardTableProps) {
         {card.targetLangTranscription}
       </td>
       {props.user && (
-        <td class="m-3">
+        <td class="my-3 flex justify-end">
           <LikeButton
             currentId={card._id}
             favCards={props.userFavs?.cardIds ?? []}
@@ -36,10 +36,10 @@ export default function AllCardsTable(props: CardTableProps) {
     </tr>
   ));
   return (
-    <div class="w-full h-full">
-      <div class="w-full flex justify-center">
-        <script src="https://tofsjonas.github.io/sortable/sortable.js"></script>
-        <table class="table-fixed font-serif text-xs sm:text-base sortable">
+    <div class="w-full">
+      <script src="https://tofsjonas.github.io/sortable/sortable.js"></script>
+      <div class="flex justify-center">
+        <table class="table-fixed w-screen sm:w-auto font-serif text-xs sm:text-base sortable">
           <thead class="text-left">
             <tr>
               <th class="p-3 m-3 btn-nobg">
@@ -48,14 +48,9 @@ export default function AllCardsTable(props: CardTableProps) {
               <th class="p-3 m-3 btn-nobg">
                 Translation
               </th>
-              <th class="p-3 m-3 max-w-full) max-w-[3rem] btn-nobg truncate">
+              <th class="p-3 m-3 btn-nobg">
                 Transcription
               </th>
-              {props.user && (
-                <th class="p-3 m-3">
-                  Fav
-                </th>
-              )}
             </tr>
           </thead>
           <tbody>
