@@ -3,7 +3,8 @@ import { MongoAPIBaseUrl, MongoApiKey } from '../../utils/env.ts'
 import * as axiod from 'https://deno.land/x/axiod@0.20.0-0/mod.ts'
 
 export const handler: Handlers = {
-  async POST(req, _ctx) {
+  async POST(req, ctx) {
+    if (!ctx.state.user) return new Response('Forbidden')
     const card = await req.json()
 
     const data = JSON.stringify({

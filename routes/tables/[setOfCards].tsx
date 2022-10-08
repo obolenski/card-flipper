@@ -3,7 +3,7 @@ import { AppUser, LanguageCard, UserFavs } from "../../utils/types.ts";
 import AllCardsTable from "../../components/AllCardsTable.tsx";
 import Main from "../../components/Layout/Main.tsx";
 import Header from "../../components/Layout/Header.tsx";
-import * as mongoApi from "../../services/mongoApi.ts";
+import * as db from "../../services/mongoApi.ts";
 import { getCookies } from "$std/http/cookie.ts";
 import { Head } from "$fresh/src/runtime/head.ts";
 import { cardCategories as allCategories } from "../../utils/cardCategories.ts";
@@ -30,8 +30,8 @@ export const handler: Handlers<{
     }
 
     const [allCards, userFavs] = await Promise.all([
-      mongoApi.getAllCards(),
-      mongoApi.getUserFavs(user?.email),
+      db.getAllCards(),
+      db.getUserFavs(user?.email),
     ]);
 
     const cards = lastUrlSegment == "all"
