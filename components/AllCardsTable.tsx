@@ -36,7 +36,7 @@ export default function AllCardsTable(props: CardTableProps) {
     </tr>
   ));
   return (
-    <div class="w-full">
+    <div class="w-full h-full">
       <script src="https://tofsjonas.github.io/sortable/sortable.js"></script>
       <div class="flex justify-center">
         <table class="table-fixed w-screen sm:w-auto font-serif text-xs sm:text-base sortable">
