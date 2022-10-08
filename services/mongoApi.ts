@@ -3,6 +3,16 @@ import { MongoAPIBaseUrl, MongoApiKey, MongoCluster } from '../utils/env.ts'
 import { LanguageCard, UserFavs } from '../utils/types.ts'
 
 export const getAllCards = async (): Promise<LanguageCard[]> => {
+  refreshCardsInCache()
+  const cachedCards = await getFromCache('db', 'cards')
+  if (cachedCards) {
+    return cachedCards
+  }
+  const cards = await getAllCardsFromDb()
+  return cards
+}
+
+const getAllCardsFromDb = async (): Promise<LanguageCard[]> => {
   const data = JSON.stringify({
     collection: 'cards',
     database: 'langCards',
@@ -22,7 +32,9 @@ export const getAllCards = async (): Promise<LanguageCard[]> => {
 
   const cards = await axiod
     .default(config)
-    .then((res) => res.data.documents)
+    .then((res) => {
+      return res.data.documents
+    })
     .catch(function (error) {
       console.log(error)
     })
@@ -30,38 +42,22 @@ export const getAllCards = async (): Promise<LanguageCard[]> => {
   return cards
 }
 
-export const getCardsByIds = async (ids: string[]): Promise<LanguageCard[]> => {
-  const data = JSON.stringify({
-    collection: 'cards',
-    database: 'langCards',
-    dataSource: MongoCluster,
-    filter: {
-      _id: { $in: ids },
-    },
-  })
-
-  const config = {
-    method: 'post',
-    url: `${MongoAPIBaseUrl}/find`,
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Request-Headers': '*',
-      'api-key': MongoApiKey,
-    },
-    data: data,
-  }
-
-  const cards = await axiod
-    .default(config)
-    .then((res) => res.data.documents)
-    .catch(function (error) {
-      console.log(error)
-    })
-
-  return cards
+const refreshCardsInCache = async () => {
+  const cards = await getAllCardsFromDb()
+  saveToCache('db', 'cards', cards)
 }
 
 export const getUserFavs = async (email: string): Promise<UserFavs> => {
+  refreshUserFavsInCache(email)
+  const cachedFavs = await getFromCache('db', `favs-${email}`)
+  if (cachedFavs) {
+    return cachedFavs
+  }
+  const userFavs = await getUserFavsFromDb(email)
+  return userFavs
+}
+
+const getUserFavsFromDb = async (email: string): Promise<UserFavs> => {
   const data = JSON.stringify({
     collection: 'userFavs',
     database: 'langCards',
@@ -92,6 +88,11 @@ export const getUserFavs = async (email: string): Promise<UserFavs> => {
   return userFavs
 }
 
+const refreshUserFavsInCache = async (email: string) => {
+  const favs = await getUserFavsFromDb(email)
+  saveToCache('db', `favs-${email}`, favs)
+}
+
 export const addCardIdToUserFavs = async (email: string, cardId: string) => {
   const data = JSON.stringify({
     collection: 'userFavs',
@@ -118,7 +119,7 @@ export const addCardIdToUserFavs = async (email: string, cardId: string) => {
     },
     data: data,
   }
-
+  refreshUserFavsInCache(email)
   return await axiod.default(config).catch((e) => console.log(e))
 }
 
@@ -151,6 +152,22 @@ export const deleteCardIdFromUserFavs = async (
     },
     data: data,
   }
-
+  refreshUserFavsInCache(email)
   return await axiod.default(config).catch((e) => console.log(e))
+}
+
+const getFromCache = async (cacheName: string, key: string) => {
+  const CACHE = await caches.open(cacheName)
+  const res = await CACHE.match(`https:/localhost/${key}`)
+  return await res?.json()
+}
+
+const saveToCache = async (
+  cacheName: string,
+  key: string,
+  value: Record<string, unknown> | Record<string, unknown>[]
+) => {
+  const CACHE = await caches.open(cacheName)
+  const response = new Response(JSON.stringify(value))
+  await CACHE.put(`https:/localhost/${key}`, response.clone())
 }
