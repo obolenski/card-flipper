@@ -1,10 +1,11 @@
 import * as axiod from 'https://deno.land/x/axiod@0.20.0-0/mod.ts'
 import { MongoAPIBaseUrl, MongoApiKey, MongoCluster } from '../utils/env.ts'
 import { LanguageCard, UserFavs } from '../utils/types.ts'
+import { createCache } from 'https://deno.land/x/deno_cache@0.4.1/mod.ts'
 
 export const getAllCards = async (): Promise<LanguageCard[]> => {
   refreshCardsInCache()
-  const cachedCards = await getFromCache('db', 'cards')
+  const cachedCards = await getFromCache('cards')
   if (cachedCards) {
     return cachedCards
   }
@@ -44,12 +45,12 @@ const getAllCardsFromDb = async (): Promise<LanguageCard[]> => {
 
 const refreshCardsInCache = async () => {
   const cards = await getAllCardsFromDb()
-  saveToCache('db', 'cards', cards)
+  saveToCache('cards', cards)
 }
 
 export const getUserFavs = async (email: string): Promise<UserFavs> => {
   refreshUserFavsInCache(email)
-  const cachedFavs = await getFromCache('db', `favs-${email}`)
+  const cachedFavs = await getFromCache(`favs-${email}`)
   if (cachedFavs) {
     return cachedFavs
   }
@@ -90,7 +91,7 @@ const getUserFavsFromDb = async (email: string): Promise<UserFavs> => {
 
 const refreshUserFavsInCache = async (email: string) => {
   const favs = await getUserFavsFromDb(email)
-  saveToCache('db', `favs-${email}`, favs)
+  saveToCache(`favs-${email}`, favs)
 }
 
 export const addCardIdToUserFavs = async (email: string, cardId: string) => {
@@ -156,18 +157,22 @@ export const deleteCardIdFromUserFavs = async (
   return await axiod.default(config).catch((e) => console.log(e))
 }
 
-const getFromCache = async (cacheName: string, key: string) => {
-  const CACHE = await caches.open(cacheName)
-  const res = await CACHE.match(`https:/localhost/${key}`)
-  return await res?.json()
+const getFromCache = async (key: string) => {
+  try {
+    const record = await Deno.readTextFile(`./${key}.json`)
+    return JSON.parse(record)
+  } catch (e) {
+    console.log(e)
+  }
 }
 
 const saveToCache = async (
-  cacheName: string,
   key: string,
   value: Record<string, unknown> | Record<string, unknown>[]
 ) => {
-  const CACHE = await caches.open(cacheName)
-  const response = new Response(JSON.stringify(value))
-  await CACHE.put(`https:/localhost/${key}`, response.clone())
+  try {
+    await Deno.writeTextFile(`./${key}.json`, JSON.stringify(value))
+  } catch (e) {
+    console.log(e)
+  }
 }
