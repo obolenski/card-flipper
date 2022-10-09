@@ -1,5 +1,5 @@
 import { StateUpdater, useEffect, useRef, useState } from "preact/hooks";
-import LikeButtonComponent from "../components/LikeButtonComponent.tsx";
+import { FilledHeart, OutlinedHeart } from "../components/Icons.tsx";
 import { AppUser } from "../utils/types.ts";
 
 interface LikeButtonProps {
@@ -14,20 +14,11 @@ export default function LikeButton(
   const { currentId, user, favCards, setFavCards } = props;
   const [isActive, setIsActive] = useState(favCards.includes(currentId));
 
-  const didMount = useRef(false);
-
   const onClick = () => {
     if (currentId == "") return;
     setIsActive(!isActive);
-  };
-  useEffect(() => {
-    if (!didMount.current) {
-      didMount.current = true;
-      return;
-    }
-
     if (setFavCards) {
-      if (!isActive) {
+      if (isActive) {
         setFavCards(favCards.filter((c) => c !== currentId));
       } else {
         setFavCards([
@@ -39,7 +30,7 @@ export default function LikeButton(
       }
     }
 
-    const method = isActive ? "POST" : "DELETE";
+    const method = isActive ? "DELETE" : "POST";
 
     const data = {
       email: user.email,
@@ -50,16 +41,24 @@ export default function LikeButton(
       method: method,
       body: JSON.stringify(data),
     });
-  }, [isActive]);
+  };
 
   useEffect(() => {
     setIsActive(favCards.includes(currentId));
   }, [props.currentId]);
 
   return (
-    <LikeButtonComponent
+    <div
+      class="btn-nobg"
       onClick={onClick}
-      isActive={isActive}
-    />
+    >
+      {isActive
+        ? (
+          <span class="text-red-500 text-opacity-80 hover:(text-red-500 text-opacity-100) transition-all duration-300">
+            <FilledHeart />
+          </span>
+        )
+        : <OutlinedHeart />}
+    </div>
   );
 }
