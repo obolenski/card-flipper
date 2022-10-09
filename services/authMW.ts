@@ -58,8 +58,8 @@ export default async function authMiddleware(
 
   const tokens = await googleApi.getTokensFromCode(code, redirectUrl)
 
-  const accessToken = tokens.access_token
-  const refreshToken = tokens.refresh_token
+  const accessToken = tokens?.access_token
+  const refreshToken = tokens?.refresh_token
 
   const userData = await googleApi.getUserData(accessToken)
   if (userData) {
