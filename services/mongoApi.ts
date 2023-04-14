@@ -22,12 +22,12 @@ export const getAllCards = async (): Promise<LanguageCard[]> => {
 
   const cards = await axiod
     .default(config)
-    .then((res) => res.data.documents)
+    .then(res => res.data.documents)
     .catch(function (error) {
       console.log(error)
     })
 
-  return cards
+  return cards ?? new Array<LanguageCard>()
 }
 
 export const getCardsByIds = async (ids: string[]): Promise<LanguageCard[]> => {
@@ -53,12 +53,12 @@ export const getCardsByIds = async (ids: string[]): Promise<LanguageCard[]> => {
 
   const cards = await axiod
     .default(config)
-    .then((res) => res.data.documents)
+    .then(res => res.data.documents)
     .catch(function (error) {
       console.log(error)
     })
 
-  return cards
+  return cards ?? new Array<LanguageCard>()
 }
 
 export const getUserFavs = async (email: string): Promise<UserFavs> => {
@@ -84,12 +84,12 @@ export const getUserFavs = async (email: string): Promise<UserFavs> => {
 
   const userFavs = await axiod
     .default(config)
-    .then((res) => res.data.document)
+    .then(res => res.data.document)
     .catch(function (error) {
       console.log(error)
     })
 
-  return userFavs
+  return userFavs ?? new Array<LanguageCard>()
 }
 
 export const addCardIdToUserFavs = async (email: string, cardId: string) => {
@@ -119,7 +119,7 @@ export const addCardIdToUserFavs = async (email: string, cardId: string) => {
     data: data,
   }
 
-  return await axiod.default(config).catch((e) => console.log(e))
+  return await axiod.default(config).catch(e => console.log(e))
 }
 
 export const deleteCardIdFromUserFavs = async (
@@ -152,5 +152,5 @@ export const deleteCardIdFromUserFavs = async (
     data: data,
   }
 
-  return await axiod.default(config).catch((e) => console.log(e))
+  return await axiod.default(config).catch(e => console.log(e))
 }
