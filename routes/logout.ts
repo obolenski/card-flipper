@@ -1,6 +1,8 @@
 import { Handlers } from '$fresh/server.ts'
-import { deleteCookie, getCookies } from '$std/http/cookie.ts'
+import { getCookies } from '$std/http/cookie.ts'
 import * as googleApi from '../services/googleApi.ts'
+import { COOKIES } from '../utils/cookies.ts'
+import { deleteAllCookies } from '../services/authMW.ts'
 
 export const handler: Handlers = {
   async GET(req, _ctx) {
@@ -9,20 +11,19 @@ export const handler: Handlers = {
       headers: { Location: '/' },
     })
 
-    const refreshToken = getCookies(req.headers)['cardflipper_refresh_token']
-    const acessToken = getCookies(req.headers)['cardflipper_access_token']
+    const cookies = getCookies(req.headers)
+    const refreshToken = cookies[COOKIES.REFRESH_TOKEN]
+    const acessToken = cookies[COOKIES.ACCESS_TOKEN]
 
     if (refreshToken) {
       await googleApi.revokeAccessToken(refreshToken)
-      deleteCookie(response.headers, 'cardflipper_refresh_token')
     }
 
     if (acessToken) {
       await googleApi.revokeAccessToken(acessToken)
-      deleteCookie(response.headers, 'cardflipper_access_token')
     }
 
-    deleteCookie(response.headers, 'cardflipper_user_token')
+    deleteAllCookies(response)
 
     return response
   },
