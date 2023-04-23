@@ -50,7 +50,7 @@ export const getAccessTokenFromRefreshToken = async (
 
 export const getUserData = async (
   accessToken: string
-): Promise<AppUser | null> => {
+): Promise<AppUser | undefined> => {
   const config = {
     method: 'get',
     url: `https://www.googleapis.com/oauth2/v2/userinfo?fields=name,email,picture`,
@@ -62,12 +62,12 @@ export const getUserData = async (
 
   const userData = await axiod
     .default(config)
-    .then((res) => res.data)
+    .then(res => res.data)
     .catch(() => {
       console.log('Error getting user data from google by access token')
     })
 
-  if (!userData) return null
+  if (!userData) return undefined
 
   const user: AppUser = {
     name: userData.name,
@@ -88,7 +88,7 @@ export const revokeAccessToken = async (accessToken: string) => {
   }
   await axiod
     .default(config)
-    .catch((e) =>
+    .catch(e =>
       console.log('Error revoking Google token: ' + JSON.stringify(e))
     )
 }

@@ -34,3 +34,8 @@ export type UserFavs = {
   email: string
   cardIds: string[]
 }
+
+export interface MWState {
+  user?: AppUser
+  googleLoginUrl: string
+}
